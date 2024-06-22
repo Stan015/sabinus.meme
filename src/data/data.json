@@ -1,0 +1,392 @@
+{
+  "memes": [
+    {
+      "id": 1,
+      "src": "/media/FB_IMG_1632670189772.JPG",
+      "description": "sabinus waving his right hand and smiling",
+      "expression": ["smiling", "waving"],
+      "width": 400,
+      "height": 400
+    },
+    {
+      "id": 2,
+      "src": "/media/FB_IMG_1643537249999.JPG",
+      "description": "sabinus waving his right hand and smiling",
+      "expression": ["smiling", "waving", "standing"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 3,
+      "src": "/media/FB_IMG_1645463326152.JPG",
+      "description": "sabinus sitting and thinking",
+      "expression": ["thinking", "suffering", "sitting"],
+      "width": 320,
+      "height": 600
+    },
+    {
+      "id": 4,
+      "src": "/media/IMG_-g41bx6.JPG",
+      "description": "sabinus sitting on the flow with his arms crossed and looking side ways",
+      "expression": ["bombastic side eye", "thinking", "sitting"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 5,
+      "src": "/media/IMG_0014.JPG",
+      "description": "sabinus sitting and showing peace sign with two fingers",
+      "expression": ["peace sign", "sitting"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 6,
+      "src": "/media/IMG_0145.JPG",
+      "description": "Sabinus running with joy while carrying empty pot and spoon",
+      "expression": ["running", "happy", "rice", "pot", "spoon"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 7,
+      "src": "/media/IMG_0206.jpg",
+      "description": "sabinus in trouble, thinking and crying",
+      "expression": ["crying", "thinking", "sweeting"],
+      "width": 300,
+      "height": 600
+    },
+    {
+      "id": 8,
+      "src": "/media/IMG_0606.JPG",
+      "description": "sabinus standing at mama put restaurant with his hand on his waist",
+      "expression": ["standing", "thinking", "rice"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 9,
+      "src": "/media/IMG_0618.JPG",
+      "description": "sabinus looking sideways while smiling like investor",
+      "expression": ["smiling", "investor's vibe"],
+      "width": 420,
+      "height": 420
+    },
+    {
+      "id": 10,
+      "src": "/media/IMG_0642.JPG",
+      "description": "sabinus looking up to heaving while sitting on the ground as he is in trouble",
+      "expression": ["in trouble", "sitting", "praying", "thinking"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 11,
+      "src": "/media/IMG_0643.JPG",
+      "description": "sabinus raised two hands to his head while keeping eyes closed in disbelieve",
+      "expression": [
+        "thinking",
+        "two hands on his head",
+        "in trouble",
+        "eyes close",
+        "disbelieve"
+      ],
+      "width": 420,
+      "height": 420
+    },
+    {
+      "id": 12,
+      "src": "/media/IMG_0702.JPG",
+      "description": "sabinus writing exams on paper",
+      "expression": ["writing", "exams", "sitting"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 13,
+      "src": "/media/IMG_0728.JPG",
+      "description": "sabinus looking with wide eyes open in shock and sweeting",
+      "expression": ["sweeting", "in trouble", "open eyes", "shocked"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 14,
+      "src": "/media/IMG_0730.JPG",
+      "description": "sabinus touching his chest to say calm down",
+      "expression": ["touching his chest", "calm down"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 15,
+      "src": "/media/IMG_0732.jpg",
+      "description": "sabinus is old and looking worried",
+      "expression": ["old", "sitting", "in trouble"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 16,
+      "src": "/media/IMG_0742.JPG",
+      "description": "sabinus feeling insulted and looking side ways",
+      "expression": ["insulted", "side eyes", "angry"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 17,
+      "src": "/media/IMG_0753.JPG",
+      "description": "sabinus sitting with eyes closed",
+      "expression": ["thinking", "sitting", "eyes closed"],
+      "width": 300,
+      "height": 600
+    },
+    {
+      "id": 18,
+      "src": "/media/IMG_0775.jpg",
+      "description": "sabinus bringing his hand to shake",
+      "expression": ["hand shake", "investor's vibe", "toasting", "talking"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 19,
+      "src": "/media/IMG_0777.jpg",
+      "description": "sabinus toasting while standing and saying that's not a problem",
+      "expression": ["investor's vibe", "talking", "toasting", "not a problem"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 20,
+      "src": "/media/IMG_0779.jpg",
+      "description": "sabinus making phone call to pretend to be rich",
+      "expression": ["phone call", "investor's vibe", "toasting"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 21,
+      "src": "/media/IMG_0782.jpg",
+      "description": "sabinus making phone call to pretend to be rich",
+      "expression": ["phone call", "investor's vibe", "toasting"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 22,
+      "src": "/media/IMG_6114.JPG",
+      "description": "sabinus stitting and thinking while having bottles of eva water",
+      "expression": [
+        "thinking",
+        "sitting",
+        "eva water",
+        "bottle water",
+        "in trouble"
+      ],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 23,
+      "src": "/media/IMG_7607.JPG",
+      "description": "sabinus at interview sitting with his file and thinking about his life",
+      "expression": ["thinking", "interview", "files", "sitting"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 24,
+      "src": "/media/IMG_8953.JPG",
+      "description": "sabinus bringing his hand to shake as investor while smiling",
+      "expression": ["hand shake", "happy", "investor's vibe"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 25,
+      "src": "/media/IMG_9003.JPG",
+      "description": "sabinus standing close to car tire and thinking about his life",
+      "expression": ["standing", "thinking", "in trouble"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 26,
+      "src": "/media/IMG_9005.JPG",
+      "description": "sabinus in class and about to cry",
+      "expression": ["in classroom", "crying", "in trouble"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 27,
+      "src": "/media/IMG_9034.JPG",
+      "description": "sabinus being held on his tie. He is in trouble",
+      "expression": ["in trouble", "held on his neck", "holding his tie"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 28,
+      "src": "/media/IMG_9093.JPG",
+      "description": "sabining thinking about his future and smiling",
+      "expression": ["thinking", "smiling", "investor's vibe"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 29,
+      "src": "/media/IMG_9150.JPG",
+      "description": "sabinus signing deals and doing peace sign with two fingers",
+      "expression": ["peace sign", "investor's vibe", "signing deal"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 30,
+      "src": "/media/IMG_20211004_201706.JPG",
+      "description": "sabinus opening his two eyes widely to see clear",
+      "expression": ["photo", "open eyes", "shocked", "disbelieve"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 31,
+      "src": "/media/IMG_20220221_171121.JPG",
+      "description": "sabinus pipping behind fence to see who is coming",
+      "expression": ["in trouble", "pipping behind fence"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 32,
+      "src": "/media/IMG_20220305_173922.JPG",
+      "description": "sabinus sitting and counting dollars (money) in investor's vibe mood",
+      "expression": ["happy", "counting money", "investor's vibe"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 33,
+      "src": "/media/IMG_20220411_174215.JPG",
+      "description": "sabinus sitting and counting money in investor's vibe mood while cheered",
+      "expression": ["happy", "counting money", "investor's vibe"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 34,
+      "src": "/media/IMG_20220516_074100.JPG",
+      "description": "sabinus crying and thinking about his life",
+      "expression": ["crying", "in trouble"],
+      "width": 420,
+      "height": 420
+    },
+    {
+      "id": 35,
+      "src": "/media/IMG_20220516_205417.JPG",
+      "description": "sabinus happy while opening wine",
+      "expression": ["happy", "investor's vibe", "celebrating"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 36,
+      "src": "/media/IMG_20220517_184247.JPG",
+      "description": "sabinus eating, drinking and enjoying in a restaurant",
+      "expression": ["happy", "eating", "restaurant"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 37,
+      "src": "/media/IMG_20220531_153342.JPG",
+      "description": "sabinus thinking about his life while sitting down",
+      "expression": ["thinking", "in trouble", "looking up"],
+      "width": 300,
+      "height": 600
+    },
+    {
+      "id": 38,
+      "src": "/media/IMG_20220718_122705.JPG",
+      "description": "sabinus standing at the ATM machine and looking confused",
+      "expression": ["standing at ATM machine", "insulted", "confused"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 39,
+      "src": "/media/IMG_20220821_142850.JPG",
+      "description": "sabinus in shock, he is in trouble.",
+      "expression": ["in trouble", "shocked", "eyes wide open"],
+      "width": 420,
+      "height": 600
+    },
+    {
+      "id": 40,
+      "src": "/media/IMG_20220828_093052.JPG",
+      "description": "sabinus on skin cut, looking worried.",
+      "expression": ["skin cut", "worried", "in trouble"],
+      "width": 420,
+      "height": 420
+    },
+    {
+      "id": 41,
+      "src": "/media/IMG_20220926_104716.JPG",
+      "description": "Sabinus in london feeling himself. The investor vibe.",
+      "expression": ["happy", "walking", "investor's vibe"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 42,
+      "src": "/media/Screenshot_20211009-232236.jpg",
+      "description": "sabinus making phone call. He is crying and calling Edu.",
+      "expression": ["crying", "phone call", "edu", "in trouble"],
+      "width": 320,
+      "height": 500
+    },
+    {
+      "id": 43,
+      "src": "/media/Screenshot_20211029-113027.jpg",
+      "description": "sabinus the passenger with sarkin dariya",
+      "expression": ["bus", "standing"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 44,
+      "src": "/media/Screenshot_20211029-113049.jpg",
+      "description": "sabinus the passenger standing with sarkin dariya, and listening",
+      "expression": ["bus", "standing", "listening"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 45,
+      "src": "/media/Screenshot_20211029-113122.jpg",
+      "description": "sabinus the passenger standing with sarkin dariya, and listening",
+      "expression": ["bus", "standing", "listening"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 46,
+      "src": "/media/Screenshot_20211029-113132.jpg",
+      "description": "sabinus the passenger standing with sarkin dariya, and listening",
+      "expression": ["bus", "standing", "listening"],
+      "width": 420,
+      "height": 700
+    },
+    {
+      "id": 47,
+      "src": "/media/Screenshot_20211029-113725.jpg",
+      "description": "sabinus opening his eyes wide with his two hands while in a bus. photo!",
+      "expression": ["in trouble", "photo", "eyes wide open"],
+      "width": 420,
+      "height": 700
+    }
+  ]
+}
