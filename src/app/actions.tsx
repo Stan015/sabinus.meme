@@ -1,6 +1,15 @@
 "use server";
 
 import { z } from "zod";
+import { v2 as cloudinary } from "cloudinary";
+import { revalidatePath } from "next/cache";
+
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
 
 export const handleUpload = async (formData: FormData) => {
   const schema = z.object({
@@ -29,5 +38,29 @@ export const handleUpload = async (formData: FormData) => {
     confirmedMeme,
   };
 
+  const arrayBuffer = await memeFileInput.arrayBuffer();
+  const buffer = new Uint8Array(arrayBuffer);
+
+  await new Promise((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream(
+        {
+          tags: ["test-tag-yes"],
+          caption: 'testing if caption works'
+        },
+        (error, result) => {
+          if (error) {
+            reject(reject);
+            return;
+          }
+          resolve(result);
+          console.log(result)
+        }
+      )
+      .end(buffer);
+  });
+
   console.log(newFormValues);
+
+  revalidatePath("/");
 };

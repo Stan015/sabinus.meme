@@ -1,14 +1,22 @@
 "use client";
 
 import Image from "next/image";
-// import { CldUploadButton } from 'next-cloudinary';
+import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
 import { FormEvent, use, useState } from "react";
 import { handleUpload } from "../actions";
+
 
 type PreviewSizes = {
   width: number;
   height: number;
   "aspect-ratio": string;
+};
+
+type UploadResult = {
+  event: string;
+  info: {
+    publicId: string;
+  };
 };
 
 export default function Upload() {
@@ -58,7 +66,31 @@ export default function Upload() {
           action={handleUpload}
         >
           <div className="w-max h-max p-6">
-            
+            {/* <CldUploadWidget
+              uploadPreset="ov46q10i"
+              options={{ sources: ["local"] }}
+              signatureEndpoint={"/api/sign-image"}
+            >
+              {({ open }) => {
+                return (
+                  <button
+                    className="w-max px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
+                    type="button"
+                    onClick={() => open()}
+                  >
+                    Upload
+                  </button>
+                );
+              }}
+            </CldUploadWidget> */}
+
+            {/* <CldUploadButton
+              uploadPreset="bex15cot"
+              onUploadAdded={(result) => {
+                console.log(result);
+              }}
+              className="w-max px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
+            /> */}
             <input
               className="w-[20rem] h-16 bg-gray-100 rounded-xl text-center p-4 file:border-blue-500 file:rounded-lg cursor-pointer file:cursor-pointer"
               type="file"
