@@ -6,7 +6,7 @@ export default function Header() {
     <>
       <header className="flex w-full h-[6rem] justify-between items-center px-[10%]">
         <Link href={"/"}>
-          <Image src={"/logo.png"} alt="logo" width={40} height={40} priority />
+          <Image className="w-full h-full" src={"/logo.png"} alt="logo" width={40} height={40} priority />
         </Link>
 
         <nav className="flex gap-6">

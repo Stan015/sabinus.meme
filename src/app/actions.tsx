@@ -14,7 +14,7 @@ cloudinary.config({
 export const handleUpload = async (formData: FormData) => {
   const schema = z.object({
     memeFile: z.string(),
-    memeDescription: z.string(),
+    // memeDescription: z.string(),
     memeExpression: z.string(),
     imageSize: z.string(),
     confirmedMeme: z.boolean(),
@@ -23,8 +23,8 @@ export const handleUpload = async (formData: FormData) => {
   const memeFileInput = (formData.get("memeFile") as File) || null;
 
   const memeFile = memeFileInput ? memeFileInput.name : "";
-  const memeDescription =
-    formData.get("memeDescription")?.toString().trim() || "";
+//   const memeDescription =
+//     formData.get("memeDescription")?.toString().trim() || "";
   const memeExpression =
     formData.get("memeExpression")?.toString().trim() || "";
   const imageSize = formData.get("imageSize")?.toString().trim() || "";
@@ -32,7 +32,7 @@ export const handleUpload = async (formData: FormData) => {
 
   const newFormValues: z.infer<typeof schema> = {
     memeFile,
-    memeDescription,
+    // memeDescription,
     memeExpression,
     imageSize,
     confirmedMeme,
@@ -45,11 +45,10 @@ export const handleUpload = async (formData: FormData) => {
     cloudinary.uploader
       .upload_stream(
         {
-          tags: [memeExpression],
-          upload_preset: 'sabinus_preset',
+          tags: ["sabinus", memeExpression],
+          upload_preset: "sabinus_preset",
           image_metadata: true,
           resource_type: "image",
-          context: []
         },
         (error, result) => {
           if (error) {
@@ -57,10 +56,10 @@ export const handleUpload = async (formData: FormData) => {
             return;
           }
           resolve(result);
-          console.log(result)
+          console.log(result);
         }
       )
-      
+
       .end(buffer);
   });
 

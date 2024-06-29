@@ -1,24 +1,29 @@
 "use client";
 
-import Image from "next/image";
-import { CldUploadWidget } from "next-cloudinary";
-import { ChangeEvent, FormEvent, use, useState } from "react";
-import { handleUpload } from "../actions";
+import type { PreviewSizeOptions, PreviewSizes } from "../types";
 
-type PreviewSizes = {
-  width: number;
-  height: number;
-  "aspect-ratio": string;
-};
+import Image from "next/image";
+// import { CldUploadWidget } from "next-cloudinary";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { handleUpload } from "../actions";
+import SizeOptions from "../components/size-options";
 
 export default function Upload() {
   const [expressions, setExpressions] = useState<Set<string>>(new Set());
+  const [previewSizeOptions, setPreviewSizeOptions] =
+    useState<PreviewSizeOptions>([
+      { width: 320, height: 320, "aspect-ratio": "1" },
+      { width: 320, height: 400, "aspect-ratio": "auto" },
+      { width: 320, height: 420, "aspect-ratio": "auto" },
+      { width: 320, height: 500, "aspect-ratio": "auto" },
+      { width: 320, height: 550, "aspect-ratio": "auto" },
+    ]);
   const [previewSize, setPreviewSize] = useState<PreviewSizes>({
     width: 320,
     height: 400,
     "aspect-ratio": "auto",
   });
-  const [image, setImage] = useState<string | ArrayBuffer | null>("");
+  const [image, setImage] = useState<string | ArrayBuffer | null>();
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
 
   const expressionOptions: string[] = [
@@ -26,11 +31,22 @@ export default function Upload() {
     "crying",
     "investor’s vibe",
     "walking",
+    "focussed",
     "winning",
     "laughing",
     "in trouble",
     "dancing",
     "sleeping",
+    "waving hand",
+    "open eyes",
+    "smiling",
+    "wide eyes open",
+    "foto!",
+    "thinking",
+    "sitting",
+    "disbelieve",
+    "shocked",
+    "fooled",
   ];
 
   const handleAddExpression = (expression: string) => {
@@ -38,14 +54,6 @@ export default function Upload() {
       new Set(prevExpressions).add(` ${expression}`)
     );
   };
-
-  const previewSizeOptions: Array<PreviewSizes> = [
-    { width: 320, height: 320, "aspect-ratio": "1" },
-    { width: 320, height: 400, "aspect-ratio": "auto" },
-    { width: 320, height: 420, "aspect-ratio": "auto" },
-    { width: 320, height: 500, "aspect-ratio": "auto" },
-    { width: 320, height: 550, "aspect-ratio": "auto" },
-  ];
 
   const handleImagePreview = (file: File) => {
     const reader = new FileReader();
@@ -56,6 +64,33 @@ export default function Upload() {
       setImage(reader.result);
     };
   };
+
+  useEffect(() => {
+    const img = new window.Image();
+
+    if (image) {
+      img.src = image as string;
+
+      img.onload = () => {
+        const { width, height } = img;
+        setPreviewSize({
+          width: width,
+          height: height,
+          "aspect-ratio": "auto",
+        });
+        setPreviewSizeOptions((prev) => [
+          ...prev,
+          {
+            width: width,
+            height: height,
+            "aspect-ratio": "auto",
+          },
+        ]);
+        // console.log(previewSizeOptions);
+      };
+    }
+    // console.log("preview image not loaded yet");
+  }, [image]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputFile = e.target.files?.[0] as File;
@@ -69,7 +104,7 @@ export default function Upload() {
       </h1>
       <div className="flex w-full h-auto justify-center">
         <form
-          className="w-max h-max flex flex-wrap justify-center gap-6 items-center"
+          className="w-max h-max flex flex-wrap justify-center gap-6 items-start"
           action={handleUpload}
         >
           <div className="w-max h-max p-6">
@@ -104,18 +139,22 @@ export default function Upload() {
             <div className="w-full h-max mt-6">
               <h3 className="font-bold text-md">Preview</h3>
               <span
-                className={`block mt-2 rounded-xl bg-gray-100 border-[5px] border-blue-500 overflow-hidden`}
+                className={`block w-[320px] h-[400px] mt-2 rounded-xl bg-gray-100 border-[5px] border-blue-500 overflow-hidden`}
                 style={{
-                  width: `${previewSize.width}px`,
-                  height: `${previewSize.height}px`,
+                  width: `${
+                    previewSize.width <= 320 ? previewSize.width : 320
+                  }px`,
+                  height: `${
+                    previewSize.height <= 550 ? previewSize.height : 400
+                  }px`,
                 }}
               >
                 {image ? (
                   <img
                     src={image as string}
-                    alt="an image of investor sabinus the comedian"
+                    alt="a meme of investor sabinus the comedian"
                     className="w-full h-full"
-                    style={{ aspectRatio: previewSize["aspect-ratio"] }}
+                    // style={{ aspectRatio: previewSize["aspect-ratio"] }}
                   />
                 ) : (
                   <Image
@@ -131,7 +170,7 @@ export default function Upload() {
           </div>
 
           <div className="w-max h-max p-6 flex flex-col gap-6">
-            <div className="flex flex-col gap-1">
+            {/* <div className="flex flex-col gap-1">
               <label className="font-bold text-md" htmlFor="memeDescription">
                 Description
               </label>
@@ -145,7 +184,7 @@ export default function Upload() {
                 minLength={60}
                 maxLength={100}
               ></textarea>
-            </div>
+            </div> */}
             <div className="flex flex-col gap-1">
               <span className="mb-2 flex gap-4 flex-wrap">
                 <label className="font-bold text-md" htmlFor="memeExpressions">
@@ -168,7 +207,7 @@ export default function Upload() {
                     <button
                       key={index}
                       type="button"
-                      className="bg-gray-100 hover:bg-blue-500 hover:text-white transition-all px-3 py-1 rounded-2xl"
+                      className="bg-gray-100 hover:bg-blue-500 active:bg-blue-500 hover:text-white transition-all px-3 py-1 rounded-2xl"
                       onClick={() => handleAddExpression(option)}
                     >
                       {option}
@@ -177,43 +216,12 @@ export default function Upload() {
                 })}
               </span>
             </div>
-            <div className="flex flex-col gap-1">
-              <span className="mb-2 flex gap-4">
-                <label className="font-bold text-md" htmlFor="imageSize">
-                  Select Size:
-                </label>
-                <input
-                  className="max-w-[9rem] h-max px-2 text-center bg-gray-100 rounded-xl py-1"
-                  type="text"
-                  id="imageSize"
-                  name="imageSize"
-                  placeholder="no size selected"
-                  value={`${previewSize.width} x ${previewSize.height}`}
-                  readOnly
-                  required
-                />
-              </span>
-              <span className="flex gap-2 flex-wrap max-w-[24rem]">
-                {previewSizeOptions.map((option, index) => {
-                  return (
-                    <button
-                      key={index}
-                      type="button"
-                      className="bg-gray-100 hover:bg-blue-500 hover:text-white transition-all px-3 py-1 rounded-2xl"
-                      onClick={() => {
-                        setPreviewSize({
-                          width: option.width,
-                          height: option.height,
-                          "aspect-ratio": option["aspect-ratio"],
-                        });
-                      }}
-                    >
-                      <span>{option.width}</span> x <span>{option.height}</span>
-                    </button>
-                  );
-                })}
-              </span>
-            </div>
+
+            <SizeOptions
+              previewSizeOptions={previewSizeOptions}
+              previewSize={previewSize}
+              setPreviewSize={setPreviewSize}
+            />
 
             <div className="w-max h-max block relative">
               <button

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { v2 as cloudinary } from "cloudinary";
 // import { memes } from "../data/data.json";
-import { CldImage } from "next-cloudinary";
 import MemeImage from "./components/meme-image";
 
 cloudinary.config({
@@ -14,7 +13,6 @@ cloudinary.config({
 type Meme = {
   public_id: string;
   secure_url: string;
-  // description: string;
   // expression: string[];
   width: number;
   height: number;
@@ -42,7 +40,7 @@ async function Home() {
           placeholder="Search memes by description, expression or keywords. E.g, investor's vibe, crying, laughing, in trouble..."
         />
       </section>
-      <main className="flex flex-col w-full items-center px-[5%] my-20">
+      <main className="flex flex-col w-full items-center px-[10%] my-20">
         <div className="w-full columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5 [&>div:not(:first-child)]:mt-4">
           {resources.map((meme: Meme) => (
             <div
