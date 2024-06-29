@@ -45,8 +45,11 @@ export const handleUpload = async (formData: FormData) => {
     cloudinary.uploader
       .upload_stream(
         {
-          tags: ["test-tag-yes"],
-          caption: 'testing if caption works'
+          tags: [memeExpression],
+          upload_preset: 'sabinus_preset',
+          image_metadata: true,
+          resource_type: "image",
+          context: []
         },
         (error, result) => {
           if (error) {
@@ -57,6 +60,7 @@ export const handleUpload = async (formData: FormData) => {
           console.log(result)
         }
       )
+      
       .end(buffer);
   });
 

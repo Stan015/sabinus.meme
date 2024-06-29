@@ -1,22 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { CldUploadButton, CldUploadWidget } from "next-cloudinary";
-import { FormEvent, use, useState } from "react";
+import { CldUploadWidget } from "next-cloudinary";
+import { ChangeEvent, FormEvent, use, useState } from "react";
 import { handleUpload } from "../actions";
-
 
 type PreviewSizes = {
   width: number;
   height: number;
   "aspect-ratio": string;
-};
-
-type UploadResult = {
-  event: string;
-  info: {
-    publicId: string;
-  };
 };
 
 export default function Upload() {
@@ -26,7 +18,7 @@ export default function Upload() {
     height: 400,
     "aspect-ratio": "auto",
   });
-
+  const [image, setImage] = useState<string | ArrayBuffer | null>("");
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
 
   const expressionOptions: string[] = [
@@ -55,6 +47,21 @@ export default function Upload() {
     { width: 320, height: 550, "aspect-ratio": "auto" },
   ];
 
+  const handleImagePreview = (file: File) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputFile = e.target.files?.[0] as File;
+    handleImagePreview(inputFile);
+  };
+
   return (
     <section className="flex flex-col gap-6 mt-6 mb-10 px[10%] items-center w-full h-full">
       <h1 className="text-[2.5rem] font-bold w-2/3 text-center">
@@ -67,7 +74,7 @@ export default function Upload() {
         >
           <div className="w-max h-max p-6">
             {/* <CldUploadWidget
-              uploadPreset="ov46q10i"
+              uploadPreset="sabinus_preset"
               options={{ sources: ["local"] }}
               signatureEndpoint={"/api/sign-image"}
             >
@@ -83,14 +90,6 @@ export default function Upload() {
                 );
               }}
             </CldUploadWidget> */}
-
-            {/* <CldUploadButton
-              uploadPreset="bex15cot"
-              onUploadAdded={(result) => {
-                console.log(result);
-              }}
-              className="w-max px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
-            /> */}
             <input
               className="w-[20rem] h-16 bg-gray-100 rounded-xl text-center p-4 file:border-blue-500 file:rounded-lg cursor-pointer file:cursor-pointer"
               type="file"
@@ -99,6 +98,7 @@ export default function Upload() {
               title="Choose or drag and drop image file"
               accept="image/*"
               required
+              onChange={(e) => handleInputChange(e)}
             />
 
             <div className="w-full h-max mt-6">
@@ -110,13 +110,22 @@ export default function Upload() {
                   height: `${previewSize.height}px`,
                 }}
               >
-                <Image
-                  className={`w-full h-full aspect-[${previewSize["aspect-ratio"]}]`}
-                  src={"/media/FB_IMG_1645463326152.JPG"}
-                  alt="cs"
-                  width={previewSize.width}
-                  height={previewSize.height}
-                />
+                {image ? (
+                  <img
+                    src={image as string}
+                    alt="an image of investor sabinus the comedian"
+                    className="w-full h-full"
+                    style={{ aspectRatio: previewSize["aspect-ratio"] }}
+                  />
+                ) : (
+                  <Image
+                    className="w-full h-full"
+                    src={"/media/FB_IMG_1643537249999.JPG"}
+                    alt="an image of investor sabinus the comedian"
+                    width={previewSize.width}
+                    height={previewSize.height}
+                  />
+                )}
               </span>
             </div>
           </div>
