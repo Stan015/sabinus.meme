@@ -12,12 +12,13 @@ export default function Header() {
         <nav className="flex gap-6">
           <Link href={"/"}>Home</Link>
           <Link href={"/upload"}>Upload</Link>
+          <Link href={"/favourites"}>Favourites</Link>
           <Link href={"/contact"}>Contact</Link>
         </nav>
 
         <nav className="flex gap-6">
           <Link href={"/login"}>Login</Link>
-          <Link href={"/signup"}>Sign Up</Link>
+          <Link href={"/sign-up"}>Sign Up</Link>
         </nav>
       </header>
     </>

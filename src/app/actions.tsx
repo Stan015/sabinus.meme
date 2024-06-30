@@ -20,6 +20,7 @@ export const handleUpload = async (formData: FormData) => {
     confirmedMeme: z.boolean(),
   });
 
+
   const memeFileInput = (formData.get("memeFile") as File) || null;
 
   const memeFile = memeFileInput ? memeFileInput.name : "";
@@ -38,6 +39,11 @@ export const handleUpload = async (formData: FormData) => {
     confirmedMeme,
   };
 
+  const memeWidth = Number(imageSize.split('x')[0])
+  const memeHeight = Number(imageSize.split('x')[1])
+
+  // console.log([imageSize.split('x'), {"width": `${[imageSize.split('x')[0]]}`, "height": `${[imageSize.split('x')[1]]}`}])
+
   const arrayBuffer = await memeFileInput.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
 
@@ -48,7 +54,10 @@ export const handleUpload = async (formData: FormData) => {
           tags: ["sabinus", memeExpression],
           upload_preset: "sabinus_preset",
           image_metadata: true,
+          unique_filename: true,
           resource_type: "image",
+          width: memeWidth,
+          height: memeHeight,
         },
         (error, result) => {
           if (error) {
@@ -63,7 +72,7 @@ export const handleUpload = async (formData: FormData) => {
       .end(buffer);
   });
 
-  console.log(newFormValues);
+  // console.log(newFormValues);
 
   revalidatePath("/");
 };

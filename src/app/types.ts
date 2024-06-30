@@ -4,4 +4,6 @@ export type PreviewSizes = {
   "aspect-ratio": string;
 };
 
-export type PreviewSizeOptions = Array<PreviewSizes>
+export type PreviewSizeOptions = Array<PreviewSizes>;
+
+export type ExpressionOptions = Array<string>;
