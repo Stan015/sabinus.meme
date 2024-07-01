@@ -2,6 +2,7 @@ import Image from "next/image";
 import { v2 as cloudinary } from "cloudinary";
 // import { memes } from "../data/data.json";
 import MemeImage from "./components/meme-image";
+import ToggleFavourite from "./components/toggle-favourite";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -16,16 +17,18 @@ type Meme = {
   // expression: string[];
   width: number;
   height: number;
+  tags: string[];
 };
 
 async function Home() {
   const { resources } = await cloudinary.search
-    .expression("resource_type:image")
+    .expression("resource_type:image AND folder:sabinus-memes")
     .sort_by("uploaded_at", "desc")
-    .max_results(30)
+    .with_field("tags")
+    // .max_results(30)
     .execute();
 
-  console.log(resources);
+  // console.log(resources);
 
   return (
     <>
@@ -35,7 +38,7 @@ async function Home() {
           me!
         </h1>
         <input
-          className="w-3/4 h-14 bg-gray-100 rounded-full px-10 flex border transition-all border-white text-md ring-offset-blue-400 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-3/4 h-14 bg-gray-100 rounded-full px-10 flex border hover:border-blue-400 dark:text-black transition-all border-white text-md ring-offset-blue-400 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           type="text"
           placeholder="Search memes by description, expression or keywords. E.g, investor's vibe, crying, laughing, in trouble..."
         />
@@ -44,9 +47,12 @@ async function Home() {
         <div className="w-full columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5 [&>div:not(:first-child)]:mt-4">
           {resources.map((meme: Meme) => (
             <div
-              className={`w-[${meme.width / 1.4}px] h-max overflow-hidden`}
+              className={`w-[${
+                meme.width / 1.4
+              }px] h-max overflow-hidden relative`}
               key={meme.public_id}
             >
+              <ToggleFavourite meme={meme} />
               <MemeImage
                 secure_url={meme.secure_url}
                 width={meme.width}

@@ -26,7 +26,7 @@ const ExpressionOptions: FC<Props> = ({
           Select Expressions:
         </label>
         <textarea
-          className="w-full h-[5.7rem] bg-gray-100 rounded-xl p-2 border transition-all hover:border-blue-400 border-white text-md ring-offset-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full h-[5.7rem] bg-gray-100 rounded-xl p-2 border transition-all dark:text-black hover:border-blue-400 border-white text-md ring-offset-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           id="memeExpressions"
           name="memeExpression"
           placeholder="Choose or enter expression"
@@ -50,7 +50,7 @@ const ExpressionOptions: FC<Props> = ({
               className={
                 selected
                   ? "bg-blue-500 hover:bg-blue-500 text-white transition-all px-3 py-1 rounded-2xl relative"
-                  : "bg-gray-100 hover:bg-blue-500 hover:text-white transition-all px-3 py-1 rounded-2xl relative"
+                  : "bg-gray-100 hover:bg-blue-500 hover:text-white dark:text-black transition-all px-3 py-1 rounded-2xl relative"
               }
               onClick={() => handleAddExpression(option)}
             >

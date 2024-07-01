@@ -22,7 +22,7 @@ const SizeOptions: FC<Props> = ({
         </label>
         <span className="flex flex-col items-center w-max h-12">
           <input
-            className="max-w-[9rem] h-max px-2 text-center bg-gray-100 rounded-xl p-2 border transition-all border-white text-md ring-offset-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="max-w-[9rem] h-max px-2 text-center dark:text-black bg-gray-100 rounded-xl p-2 border transition-all border-white text-md ring-offset-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             type="text"
             id="imageSize"
             name="imageSize"
@@ -63,7 +63,7 @@ const SizeOptions: FC<Props> = ({
               className={
                 selectedSize
                   ? "bg-blue-500 hover:bg-blue-500 text-white transition-all px-3 py-1 rounded-2xl relative"
-                  : "bg-gray-100 hover:bg-blue-500 hover:text-white transition-all px-3 py-1 rounded-2xl relative"
+                  : "bg-gray-100 hover:bg-blue-500 hover:text-white dark:text-black transition-all px-3 py-1 rounded-2xl relative"
               }
               onClick={() => {
                 setPreviewSize({

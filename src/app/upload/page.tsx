@@ -5,7 +5,7 @@ import type { PreviewSizeOptions, PreviewSizes } from "@/types";
 import Image from "next/image";
 // import { CldUploadWidget } from "next-cloudinary";
 import { ChangeEvent, useEffect, useState } from "react";
-import { handleUpload } from "@/actions";
+import { uploadAction } from "@/actions";
 import SizeOptions from "@/components/size-options";
 import ExpressionOptions from "@/components/expression-options";
 import PreviewUpload from "@/components/preview-upload";
@@ -114,13 +114,13 @@ export default function Upload() {
       <div className="flex w-full h-auto justify-center">
         <form
           className="w-max h-max flex flex-wrap justify-center gap-6 items-start"
-          action={handleUpload}
+          action={uploadAction}
         >
           <div className="w-max h-max p-6">
             {/* <CldUploadWidget
               uploadPreset="sabinus_preset"
               options={{ sources: ["local"] }}
-              signatureEndpoint={"/api/sign-image"}
+              signatureEndpoint={"/api/sign-image-upload"}
             >
               {({ open }) => {
                 return (
@@ -135,7 +135,7 @@ export default function Upload() {
               }}
             </CldUploadWidget> */}
             <input
-              className="w-[20rem] h-16 bg-gray-100 rounded-xl text-center p-4 border border-white transition-all hover:border-blue-400 file:border-blue-500 file:rounded-lg cursor-pointer file:cursor-pointer"
+              className="w-[20rem] h-16 bg-gray-100 dark:text-black rounded-xl text-center p-4 border border-white transition-all hover:border-blue-400 file:border-blue-500 file:rounded-lg cursor-pointer file:cursor-pointer"
               type="file"
               name="memeFile"
               id="memeFile"
