@@ -14,9 +14,9 @@ Kindly note that the technologies for this project are strictly:
 - Clone the forked repo from your github profile
 - Create your branch (example name: `sub-branch`)
 - Check out to the branch you created and write your code.
-- It is very important that you confirm you are not committing directly to the main break to help manage changes
+- It is very important that you confirm you are not committing directly to the main branch to help manage changes
 - Always check main remote repo to sync your forked repo with main repo to stay upto date.
-- When ever you finish coding or before coding, make sure to run `git pull --rebase origin main` to rebase your local changes to be up to date with remote repo
+- Whenever you finish coding or before coding, make sure to run `git pull --rebase origin main` to rebase your local changes to be up to date with remote repo
 - In cases of conflict, please reach out to confirm you are not making breaking changes or merge with care to resolve conflict
 - After pushing your code to your forked repo, make a pull request so your changes would be merged.
 
