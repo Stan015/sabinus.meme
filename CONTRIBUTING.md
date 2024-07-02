@@ -8,6 +8,30 @@ Kindly note that the technologies for this project are strictly:
 - Cloudinary
 - NextAuth.js/Supabase
 
+## Setting up your dev environment
+
+- Fork this repo to your github profile
+- Clone the forked repo from your github profile
+- Create your branch (example name: `sub-branch`)
+- Check out to the branch you created and write your code.
+- It is very important that you confirm you are not committing directly to the main break to help manage changes
+- Always check main remote repo to sync your forked repo with main repo to stay upto date.
+- When ever you finish coding or before coding, make sure to run `git pull --rebase origin main` to rebase your local changes to be up to date with remote repo
+- In cases of conflict, please reach out to confirm you are not making breaking changes or merge with care to resolve conflict
+- After pushing your code to your forked repo, make a pull request so your changes would be merged.
+
+- Use `pnpm` to install packages.
+
+- To run this project in development, run `pnpm install` to install all dependencies and dev-dependencies, and `pnpm run dev` to start the server.
+
+```bash
+pnpm install
+
+pnpm dev
+```
+
+- Take your time to observe the structure of the codebase so that you would align with the file system. It a folder already exists for what you want to do, kindly create the file in that folder rather than duplicating the folder.
+
 ## Colors
 
 Currently, main colors are as follows and should be consistent in any component a Frontend Developer is working on.
@@ -46,7 +70,7 @@ body {
 }
 ```
 
-## What is open for contribution 
+## What is currently open for contribution
 
 - Login page
 - Sign up page
@@ -56,7 +80,7 @@ body {
 
 ## Important Note
 
-Kindly update this section with your name and what you worked on for this project.
+Kindly update this section with your name and what you worked on for this project from your forked repo.
 
 Name: ...
 
@@ -64,6 +88,6 @@ What You Worked On: ...
 
 Please don't hesitate to reach out to me for clarity on any topic or questions you might have. I am open to your suggestions and ideas as well. Also do check this guide in cases of update.
 
-In cases of conflict, be sure not to push breaking changes.
+In cases of conflict, be sure not to push breaking changes. Always write meaningful commit messages.
 
 Let's go! 🚀
