@@ -14,7 +14,7 @@ An app that displays memes of the famous Investor Sabinus the comedian.
 
 ## Important
 
-To run this project in development, run `pnpm install` to install all dependencies and dev-dependencies, and `pnpm run dev` to start server.
+To run this project in development, run `pnpm install` to install all dependencies and dev-dependencies, and `pnpm run dev` to start the server.
 
 ```bash
 pnpm install
@@ -22,4 +22,4 @@ pnpm install
 pnpm dev
 ```
 
-If you are a contributor to this project, kindly read the Contribution Guidelines in CONTRIBUTING.md file.
+If you are a contributor to this project, kindly read the Contribution Guidelines in [CONTRIBUTING.md](CONTRIBUTING.md) file.

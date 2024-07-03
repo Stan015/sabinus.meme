@@ -95,7 +95,7 @@ export const searchMemesAction = async (): Promise<Meme[]> => {
 
 export const toggleFavouritesAction = async (
   publicID: string,
-  isFavourite: boolean
+  isFavourite: boolean = true
 ) => {
   try {
     if (!isFavourite) {

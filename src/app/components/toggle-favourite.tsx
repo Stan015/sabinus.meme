@@ -4,24 +4,37 @@ import type { Meme } from "@/types";
 
 import { toggleFavouritesAction } from "@/actions";
 import { MdiHeart, MdiHeartOutline } from "@/icons";
-import { FC } from "react";
-import { useRouter } from "next/router";
+import { FC, useState } from "react";
 
 type Props = {
   meme: Meme;
+  handleRemoveFromFavourite?: (publicID: string) => void;
 };
 
-const ToggleFavourite: FC<Props> = ({ meme }) => {
+const ToggleFavourite: FC<Props> = ({ meme, handleRemoveFromFavourite }) => {
   const isFavourite = meme.tags?.includes("favourite");
+  const [toggleIsFavourite, setToggleIsFavourite] = useState(isFavourite);
 
   return (
     <button
       className="absolute z-10 w-8 h-8 max-md:w-6 max-md:h-6 right-3 top-3"
       type="button"
       title="add to favourites"
-      onClick={() => toggleFavouritesAction(meme.public_id, isFavourite)}
+      onClick={() => {
+        if (handleRemoveFromFavourite) {
+          handleRemoveFromFavourite?.(meme.public_id);
+          setTimeout(() => {
+            setToggleIsFavourite((prev) => (prev = !prev));
+          }, 1500);
+        } else {
+          toggleFavouritesAction(meme.public_id, isFavourite);
+          setTimeout(() => {
+            setToggleIsFavourite((prev) => (prev = !prev));
+          }, 1500);
+        }
+      }}
     >
-      {isFavourite ? (
+      {toggleIsFavourite ? (
         <MdiHeart className="text-red-500 w-full h-full hover:text-blue-500 transition-all" />
       ) : (
         <MdiHeartOutline className="w-full h-full text-blue-500 hover:text-red-500 transition-all" />
