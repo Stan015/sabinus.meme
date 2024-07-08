@@ -94,6 +94,10 @@ I created a login-form file and a button file directly form the app folder. The 
 
 I created a contact folder and routed the page in it.
 
+3. I worked on the Sign uppage for this project. 
+
+I created a sign-up folder and routed the page in it.
+
 Please don't hesitate to reach out to me for clarity on any topic or questions you might have. I am open to your suggestions and ideas as well. Also do check this guide in cases of update.
 
 In cases of conflict, be sure not to push breaking changes. Always write meaningful commit messages.
