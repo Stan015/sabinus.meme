@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.4",
+    "@supabase/supabase-js": "^2.44.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "cloudinary": "^2.2.0",
     "clsx": "^2.1.1",
