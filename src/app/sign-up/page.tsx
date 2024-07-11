@@ -1,5 +1,15 @@
 "use client"
 import { useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
+// import { AuthResponse } from '@supabase/supabase-js';
+
+// type SignUpResponse = AuthResponse & {
+//   user: {
+//     id: string;
+//     email: string;
+//     // Add any other properties you expect the user object to have
+//   };
+// };
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -20,6 +30,20 @@ const Signup = () => {
     // Handle form submission logic
     console.log(formData);
   };
+  async function signUp(email: string, password: string) {
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+  
+    if (error) {
+      console.error('Error signing up:', error.message);
+    } else {
+      console.log('User signed up:', data.user);
+    }
+  }
+  
+  signUp('user@example.com', 'password123');
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 ">
