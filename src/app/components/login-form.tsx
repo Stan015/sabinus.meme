@@ -24,6 +24,7 @@ async function signIn(email: string, password: string) {
 
 signIn('user@example.com', 'password123')
 
+
   return (
     <form className="space-y-3 w-1/2 mx-auto flex flex-col items-center">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
