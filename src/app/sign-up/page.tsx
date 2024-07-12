@@ -1,11 +1,21 @@
-"use client"
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
+import { supabase } from "../lib/supabaseClient";
+// import { AuthResponse } from '@supabase/supabase-js';
+
+// type SignUpResponse = AuthResponse & {
+//   user: {
+//     id: string;
+//     email: string;
+//     // Add any other properties you expect the user object to have
+//   };
+// };
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +30,34 @@ const Signup = () => {
     // Handle form submission logic
     console.log(formData);
   };
+  async function signUp(email: string, password: string) {
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+
+    if (error) {
+      console.error("Error signing up:", error.message);
+    } else {
+      console.log("User signed up:", data.user);
+    }
+  }
+
+  signUp("user@example.com", "password123");
+
+  const handleGoogleSignUp = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+
+    if (error) {
+      console.error("Error signing up with Google:", error.message);
+      // Optionally, handle error here (e.g., show a message to the user)
+    } else {
+      console.log("Google sign-up initiated");
+      // Optionally, handle successful initiation here
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 ">
@@ -27,7 +65,10 @@ const Signup = () => {
         <h2 className="text-[2.5rem] font-bold mb-6 text-center">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-lg font-medium text-gray-700 mb-3" htmlFor="username">
+            <label
+              className="block text-lg font-medium text-gray-700 mb-3"
+              htmlFor="username"
+            >
               Username
             </label>
             <input
@@ -41,7 +82,10 @@ const Signup = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-lg font-medium text-gray-700 mb-3" htmlFor="email">
+            <label
+              className="block text-lg font-medium text-gray-700 mb-3"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
@@ -55,7 +99,10 @@ const Signup = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-lg font-medium text-gray-700 mb-3" htmlFor="password">
+            <label
+              className="block text-lg font-medium text-gray-700 mb-3"
+              htmlFor="password"
+            >
               Password
             </label>
             <input
@@ -74,6 +121,19 @@ const Signup = () => {
           >
             Sign Up
           </button>
+          <div className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 mt-4 flex justify-center">
+            <button
+              onClick={handleGoogleSignUp}
+              className="flex items-center bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              <img
+                src="./icons8-google-48.png"
+                alt="Google Icon"
+                className="w-6 h-6 mr-2"
+              />
+              Sign up with Google
+            </button>
+          </div>
         </form>
       </div>
     </div>

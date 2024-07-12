@@ -6,8 +6,25 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
+import { supabase } from '../lib/supabaseClient';
 
 export default function LoginForm() {
+async function signIn(email: string, password: string) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: password,
+  });
+
+  if (error) {
+    console.error('Error signing in:', error.message);
+  } else {
+    console.log('User signed in:', data.user);
+  }
+}
+
+signIn('user@example.com', 'password123')
+
+
   return (
     <form className="space-y-3 w-1/2 mx-auto flex flex-col items-center">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
