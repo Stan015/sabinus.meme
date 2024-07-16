@@ -1,7 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import { NextResponse } from "next/server";
 
-export default async function GET() {
+export const GET = async () => {
   try {
     const { resources } = await cloudinary.search
       .expression(
@@ -16,5 +16,6 @@ export default async function GET() {
     return NextResponse.json(resources);
   } catch (error) {
     console.log(`Error occurred: ${error}`);
+    return NextResponse.error();
   }
-}
+};
