@@ -3,7 +3,7 @@
 import type { Meme } from "@/types";
 
 import { toggleFavouritesAction } from "@/actions";
-import { MdiHeart, MdiHeartOutline } from "@/icons/icons";
+import { MdiHeart, MdiHeartOutline } from "@/(icons)/icons";
 import { FC, useState } from "react";
 
 type Props = {

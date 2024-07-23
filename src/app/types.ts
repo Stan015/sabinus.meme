@@ -15,3 +15,10 @@ export type Meme = {
   height: number;
   tags: string[]
 };
+
+export type FormData = {
+  username?: string;
+  email: string;
+  password: string;
+  fullName?: string;
+}
