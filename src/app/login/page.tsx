@@ -8,14 +8,12 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/button";
 import Image from "next/image";
 
-export default function Page() {
+export default function Login() {
   const [formData, setFormData] = useState<FormData>({
     username: "",
     email: "",
     password: "",
   });
-
-  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -33,7 +31,7 @@ export default function Page() {
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <LoginForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
         <Button
-            onClick={handleGoogleSignUp}
+            onClick={() => handleGoogleSignUp("google")}
             className="flex gap-4 items-center justify-center mt-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
           >
             <Image

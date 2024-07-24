@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../utils/supabase/client";
 import { handleGoogleSignUp, signUp } from "@/(authentication)/auth";
 import { Button } from "@/components/button";
 import Image from "next/image";
@@ -90,7 +90,7 @@ const Signup = () => {
             Sign Up
           </Button>
           <Button
-            onClick={handleGoogleSignUp}
+            onClick={() => handleGoogleSignUp("google")}
             className="flex gap-4 items-center justify-center mt-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
           >
             <Image
