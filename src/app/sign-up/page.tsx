@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { supabase } from "../utils/supabase/client";
 import { handleGoogleSignUp, signUp } from "@/(authentication)/auth";
 import { Button } from "@/components/button";
 import Image from "next/image";
