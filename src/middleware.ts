@@ -8,19 +8,23 @@ export async function middleware(request: NextRequest) {
   // console.log(updateSession(request))
 
   const user = (await supabase.auth.getUser()).data.user;
+  const isLoggedIn = Boolean(user);
 
   const currentPath = request.nextUrl.pathname;
   const protectedPath = "/favourites";
+
+  const response = NextResponse.next();
+  response.cookies.set('isLoggedIn', isLoggedIn ? 'true' : 'false', { httpOnly: false });
 
   if (user) {
     console.log("logged in user: ", user);
   }
 
-  // if (!user) console.log("no user logged in");
+  if (!user) console.log("no user logged in");
 
   if (!user && currentPath === protectedPath) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  return NextResponse.next();
+  return response;
 }
