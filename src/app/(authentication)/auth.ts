@@ -26,18 +26,40 @@ export async function signIn(formData: FormData) {
 }
 
 export async function signUp(formData: FormData) {
-  const { data, error } = await supabase.auth.signUp({
-    email: formData.email,
-    password: formData.password,
-  });
+  try {
+    const { data, error } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+    });
+  
+    if (error) {
+      console.error("Error signing up:", error.message);
+      redirect("/error");
+    } 
+    
+    if (data) {
+      console.log("User signed up:", data.user);
+      revalidatePath("/", "layout");
+      redirect("/");
+    }
 
-  if (error) {
-    console.error("Error signing up:", error.message);
-    redirect("/error");
-  } else {
-    console.log("User signed up:", data.user);
-    revalidatePath("/", "layout");
-    redirect("/");
+    const response = await fetch("http://localhost:3000/api/add-new-user-to-db", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const postUserData = await response.json();
+
+    if (!response.ok) {
+      throw new Error( `"Something went wrong", ${postUserData.error}`);
+    }
+
+    console.log(data);
+  } catch (error) {
+    console.error((error as Error).message);
   }
 }
 

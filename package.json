@@ -14,6 +14,7 @@
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "bcrypt": "^5.1.1",
     "cloudinary": "^2.2.0",
     "clsx": "^2.1.1",
     "next": "14.2.4",
@@ -24,6 +25,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
