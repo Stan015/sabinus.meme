@@ -4,7 +4,6 @@ import { handleGoogleSignUp, signUp } from "@/(authentication)/auth";
 import { Button } from "@/components/button";
 import Image from "next/image";
 import { FormData } from "@/types";
-import { useRouter } from "next/navigation";
 
 const Signup = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -13,8 +12,6 @@ const Signup = () => {
     password: "",
   });
 
-  const router = useRouter();
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -22,8 +19,8 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = () => {
-    signUp(formData);
+  const handleSubmit = async () => {
+    await signUp(formData);
   };
 
   return (
@@ -89,7 +86,7 @@ const Signup = () => {
             Sign Up
           </Button>
           <Button
-            onClick={() => handleGoogleSignUp("google")}
+            onClick={async () => await handleGoogleSignUp("google")}
             className="flex gap-4 items-center justify-center mt-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
           >
             <Image

@@ -6,8 +6,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Provider } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
+import { headers } from "next/headers";
 
 const supabase = createClient();
+const origin = headers().get("origin");
 
 export async function signIn(formData: FormData) {
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -26,57 +28,81 @@ export async function signIn(formData: FormData) {
 }
 
 export async function signUp(formData: FormData) {
-  try {
-    const { data, error } = await supabase.auth.signUp({
-      email: formData.email,
-      password: formData.password,
-    });
-  
-    if (error) {
-      console.error("Error signing up:", error.message);
-      redirect("/error");
-    } 
-    
-    if (data) {
-      console.log("User signed up:", data.user);
-      revalidatePath("/", "layout");
-      redirect("/");
-    }
+  const { data, error } = await supabase.auth.signUp({
+    email: formData.email,
+    password: formData.password,
+  });
 
-    const response = await fetch("http://localhost:3000/api/add-new-user-to-db", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const postUserData = await response.json();
-
-    if (!response.ok) {
-      throw new Error( `"Something went wrong", ${postUserData.error}`);
-    }
-
-    console.log(data);
-  } catch (error) {
-    console.error((error as Error).message);
+  if (error) {
+    console.error("Error signing up:", error.message);
+    redirect("/error");
   }
+
+  if (data) {
+    console.log("User signed up:", data.user);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/add-new-user-to-db`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const postUserData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`"Something went wrong", ${postUserData.error}`);
+      }
+
+      console.log(data, postUserData);
+    } catch (error) {
+      console.error((error as Error).message);
+    }
+  }
+
+  revalidatePath("/", "layout");
+  redirect("/");
 }
 
 export const handleGoogleSignUp = async (provider: Provider) => {
-  const { error } = await supabase.auth.signInWithOAuth({
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
+    options: {
+      redirectTo: `${origin}/api/auth/confirm`,
+    },
   });
 
   if (error) {
     console.error("Error signing up with Google:", error.message);
     redirect("/error");
   }
-  {
-    console.log("Google sign-up initiated");
-    revalidatePath("/", "layout");
-    redirect("/");
-  }
+
+  // console.log("Google sign-up initiated", data);
+
+  // try {
+  //   const response = await fetch(
+  //     `${process.env.NEXT_PUBLIC_HOSTNAME}/api/check-user-on-db`
+  //   );
+
+  //   if (response.status === 201) {
+  //     const responseData = await response.json();
+  //     console.log(responseData);
+  //   }
+
+  //   if (response.status === 404) {
+  //     throw new Error("User doesn't exist in the database");
+  //   }
+  // } catch (error) {
+  //   console.error("Error message:", (error as Error).message);
+  // }
+
+  revalidatePath("/", "layout");
+  redirect(`${data.url}`);
 };
 
 export const signOut = async () => {
