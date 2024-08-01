@@ -17,20 +17,24 @@ export async function middleware(request: NextRequest) {
     // console.log("logged in user: ", user);
     
     const userChecked = request.cookies.get("userChecked");
-    if (!userChecked) {
-      response.headers.set("x-user-email", user.email!);
+
+    if (userChecked?.value === 'false') {
+      const userEmail = user.email!;
+      response.headers.set("x-user-email", userEmail);
 
       await fetch(`${request.nextUrl.origin}/api/check-user-on-db`, {
         method: "GET",
         headers: {
-          "x-user-email": user.email,
+          "x-user-email": userEmail,
         },
       });
 
       response.cookies.set("userChecked", "true", { httpOnly: true });
     }
+  } else {
+    response.cookies.set("userChecked", "false", { httpOnly: true });
   }
-
+  
   // if (!user) console.log("no user logged in");
 
   const currentPath = request.nextUrl.pathname;

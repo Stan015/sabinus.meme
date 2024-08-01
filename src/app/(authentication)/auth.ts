@@ -1,7 +1,6 @@
 "use server";
 
 import { FormData } from "@/types";
-// import { supabase } from "@/utils/supabaseClient";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Provider } from "@supabase/supabase-js";
@@ -21,7 +20,7 @@ export async function signIn(formData: FormData) {
     console.error("Error signing in:", error.message);
     redirect("/error");
   } else {
-    console.log("User signed in:", data.user);
+    // console.log("User signed in:", data.user);
     revalidatePath("/", "layout");
     redirect("/");
   }
@@ -39,7 +38,7 @@ export async function signUp(formData: FormData) {
   }
 
   if (data) {
-    console.log("User signed up:", data.user);
+    // console.log("User signed up:", data.user);
 
     try {
       const response = await fetch(
@@ -59,7 +58,7 @@ export async function signUp(formData: FormData) {
         throw new Error(`"Something went wrong", ${postUserData.error}`);
       }
 
-      console.log(data, postUserData);
+      // console.log(data, postUserData);
     } catch (error) {
       console.error((error as Error).message);
     }
@@ -83,23 +82,6 @@ export const handleGoogleSignUp = async (provider: Provider) => {
   }
 
   // console.log("Google sign-up initiated", data);
-
-  // try {
-  //   const response = await fetch(
-  //     `${process.env.NEXT_PUBLIC_HOSTNAME}/api/check-user-on-db`
-  //   );
-
-  //   if (response.status === 201) {
-  //     const responseData = await response.json();
-  //     console.log(responseData);
-  //   }
-
-  //   if (response.status === 404) {
-  //     throw new Error("User doesn't exist in the database");
-  //   }
-  // } catch (error) {
-  //   console.error("Error message:", (error as Error).message);
-  // }
 
   revalidatePath("/", "layout");
   redirect(`${data.url}`);
