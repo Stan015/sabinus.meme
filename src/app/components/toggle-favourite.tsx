@@ -1,10 +1,11 @@
 "use client";
 
 import type { Meme } from "@/types";
+import type { FC } from "react";
 
 import { toggleFavouritesAction } from "@/actions";
 import { MdiHeart, MdiHeartOutline } from "@/(icons)/icons";
-import { FC, useState } from "react";
+import { useState } from "react";
 
 type Props = {
   meme: Meme;

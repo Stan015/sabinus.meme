@@ -1,9 +1,9 @@
 "use server";
 
-import { FormData } from "@/types";
+import type { FormData } from "@/types";
+import type { Provider } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { Provider } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 
@@ -49,7 +49,7 @@ export async function signUp(formData: FormData) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
-        }
+        },
       );
 
       const postUserData = await response.json();

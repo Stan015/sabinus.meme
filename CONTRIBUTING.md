@@ -86,15 +86,15 @@ Name: Abosede Omotoso
 
 What You Worked On:
 
-1. I worked on the login page for this project. 
+1. I worked on the login page for this project.
 
-I created a login-form file and a button file directly form the app folder. The button file was imported into the login-form.  After which a login folder was created with the page routed in it. Furthermore, dependencies were installed to aid the use of some icons and clsx.
+I created a login-form file and a button file directly form the app folder. The button file was imported into the login-form. After which a login folder was created with the page routed in it. Furthermore, dependencies were installed to aid the use of some icons and clsx.
 
 2. I worked on the contact page for this project.
 
 I created a contact folder and routed the page in it.
 
-3. I worked on the Sign uppage for this project. 
+3. I worked on the Sign uppage for this project.
 
 I created a sign-up folder and routed the page in it.
 
@@ -105,5 +105,3 @@ Please don't hesitate to reach out to me for clarity on any topic or questions y
 In cases of conflict, be sure not to push breaking changes. Always write meaningful commit messages.
 
 Let's go! 🚀
-
-

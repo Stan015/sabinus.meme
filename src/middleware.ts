@@ -15,10 +15,10 @@ export async function middleware(request: NextRequest) {
 
   if (user) {
     // console.log("logged in user: ", user);
-    
+
     const userChecked = request.cookies.get("userChecked");
 
-    if (userChecked?.value === 'false') {
+    if (userChecked?.value === "false") {
       const userEmail = user.email!;
       response.headers.set("x-user-email", userEmail);
 
@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
   } else {
     response.cookies.set("userChecked", "false", { httpOnly: true });
   }
-  
+
   // if (!user) console.log("no user logged in");
 
   const currentPath = request.nextUrl.pathname;

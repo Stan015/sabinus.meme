@@ -1,10 +1,11 @@
 "use client";
 
 import type { PreviewSizeOptions, PreviewSizes } from "@/types";
+import type { ChangeEvent } from "react";
 
 import Image from "next/image";
 // import { CldUploadWidget } from "next-cloudinary";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { uploadAction } from "@/actions";
 import SizeOptions from "@/components/size-options";
 import ExpressionOptions from "@/components/expression-options";

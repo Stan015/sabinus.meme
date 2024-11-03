@@ -2,7 +2,7 @@
 
 import type { PreviewSizes } from "@/types";
 
-import { FC } from "react";
+import type { FC } from "react";
 import Image from "next/image";
 
 type Props = {

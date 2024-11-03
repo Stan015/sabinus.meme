@@ -5,8 +5,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button } from "./button";
-import { FormData } from "@/types";
-import { FC } from "react";
+import type { FormData } from "@/types";
+import type { FC } from "react";
 
 type Props = {
   formData: FormData;
@@ -15,11 +15,7 @@ type Props = {
   handleSubmit: () => void;
 };
 
-const LoginForm: FC<Props> = ({
-  formData,
-  handleChange,
-  handleSubmit,
-}) => {
+const LoginForm: FC<Props> = ({ formData, handleChange, handleSubmit }) => {
   return (
     <form action={handleSubmit}>
       <h1 className="text-[2.5rem] font-bold w-2/3 text-center m-auto">
@@ -70,7 +66,10 @@ const LoginForm: FC<Props> = ({
           </div>
         </div>
       </div>
-      <Button className="mt-4 w-full flex items-center justify-center gap-4" type="submit" >
+      <Button
+        className="mt-4 w-full flex items-center justify-center gap-4"
+        type="submit"
+      >
         Log in <ArrowRightIcon className=" h-5 w-5 text-gray-500" />
       </Button>
     </form>

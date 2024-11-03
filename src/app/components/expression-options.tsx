@@ -1,14 +1,13 @@
 "use client";
 
-import type { ExpressionOptions } from "@/types";
-
-import { ChangeEvent, FC } from "react";
+import type { ExpressionOptionsType } from "@/types";
+import type { ChangeEvent, FC } from "react";
 
 type Props = {
-  expressionOptions: ExpressionOptions;
-  expressions: ExpressionOptions;
+  expressionOptions: ExpressionOptionsType;
+  expressions: ExpressionOptionsType;
   handleExpressionInputChange: (
-    option: ChangeEvent<HTMLTextAreaElement>
+    option: ChangeEvent<HTMLTextAreaElement>,
   ) => void;
   handleAddExpression: (option: string) => void;
 };

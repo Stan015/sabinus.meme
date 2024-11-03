@@ -66,7 +66,7 @@ export const uploadAction = async (formData: FormData) => {
           }
           resolve(result);
           console.log(result);
-        }
+        },
       )
 
       .end(buffer);
@@ -95,7 +95,7 @@ export const searchMemesAction = async (): Promise<Meme[]> => {
 
 export const toggleFavouritesAction = async (
   publicID: string,
-  isFavourite: boolean = true
+  isFavourite: boolean = true,
 ) => {
   try {
     if (!isFavourite) {
@@ -115,7 +115,7 @@ export const getFavouriteMemesAction = async (): Promise<Meme[]> => {
   try {
     const { resources } = await cloudinary.search
       .expression(
-        "resource_type:image AND folder:sabinus-memes AND tags=favourite"
+        "resource_type:image AND folder:sabinus-memes AND tags=favourite",
       )
       .sort_by("uploaded_at", "desc")
       .with_field("tags")

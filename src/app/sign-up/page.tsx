@@ -1,9 +1,9 @@
 "use client";
+import type { FormData } from "@/types";
 import { useState } from "react";
 import { handleGoogleSignUp, signUp } from "@/(authentication)/auth";
 import { Button } from "@/components/button";
 import Image from "next/image";
-import { FormData } from "@/types";
 
 const Signup = () => {
   const [formData, setFormData] = useState<FormData>({

@@ -1,9 +1,9 @@
 "use client";
 
+import type { FormData } from "@/types";
 import { useState } from "react";
 import { handleGoogleSignUp, signIn } from "@/(authentication)/auth";
 import LoginForm from "../components/login-form";
-import { FormData } from "@/types";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/button";
 import Image from "next/image";

@@ -1,7 +1,7 @@
 "use client";
 import type { PreviewSizeOptions, PreviewSizes } from "@/types";
 
-import { FC } from "react";
+import type { FC } from "react";
 
 type Props = {
   previewSizeOptions: PreviewSizeOptions;
@@ -32,9 +32,7 @@ const SizeOptions: FC<Props> = ({
             required
           />
           {previewSize.width > 320 || previewSize.height > 500 ? (
-            <p className="text-[0.6rem]">
-              original size recommended
-            </p>
+            <p className="text-[0.6rem]">original size recommended</p>
           ) : (
             ""
           )}
@@ -42,8 +40,8 @@ const SizeOptions: FC<Props> = ({
       </div>
       <span className="flex gap-2 flex-wrap max-w-[24rem]">
         {previewSizeOptions.map((option, index) => {
-          let previewInputValue = `${previewSize.width} x ${previewSize.height}`;
-          let currentSize = `${option.width} x ${option.height}`;
+          const previewInputValue = `${previewSize.width} x ${previewSize.height}`;
+          const currentSize = `${option.width} x ${option.height}`;
           let selectedSize = false;
           let originalSize = false;
           const isFirstButton = index === 0;
@@ -53,7 +51,7 @@ const SizeOptions: FC<Props> = ({
           }
 
           if (option.width > 320 || option.height > 500) {
-            originalSize = true
+            originalSize = true;
           }
 
           return (
@@ -74,7 +72,11 @@ const SizeOptions: FC<Props> = ({
               }}
             >
               <span>{option.width}</span> x <span>{option.height}</span>
-              {originalSize && isFirstButton && <span className="absolute -right-1 -top-[0.8rem] text-blue-500">☆</span>}
+              {originalSize && isFirstButton && (
+                <span className="absolute -right-1 -top-[0.8rem] text-blue-500">
+                  ☆
+                </span>
+              )}
             </button>
           );
         })}

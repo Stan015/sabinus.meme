@@ -7,7 +7,7 @@ import { MdiUser } from "@/(icons)/icons";
 
 export default function Header() {
   const { isLoggedIn } = useAuthContext();
-  
+
   return (
     <>
       <header className="flex w-full h-[6rem] justify-between items-center px-[10%]">

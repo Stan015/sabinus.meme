@@ -6,14 +6,14 @@ export type PreviewSizes = {
 
 export type PreviewSizeOptions = Array<PreviewSizes>;
 
-export type ExpressionOptions = Array<string>;
+export type ExpressionOptionsType = Array<string>;
 
 export type Meme = {
   public_id: string;
   secure_url: string;
   width: number;
   height: number;
-  tags: string[]
+  tags: string[];
 };
 
 export type FormData = {
@@ -21,4 +21,4 @@ export type FormData = {
   email: string;
   password: string;
   fullName?: string;
-}
+};
