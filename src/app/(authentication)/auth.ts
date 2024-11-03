@@ -5,10 +5,10 @@ import type { Provider } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { headers } from "next/headers";
+import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
 
 const supabase = createClient();
-const origin = headers().get("origin");
+const origin = (headers() as unknown as UnsafeUnwrappedHeaders).get("origin");
 
 export async function signIn(formData: FormData) {
   const { data, error } = await supabase.auth.signInWithPassword({
