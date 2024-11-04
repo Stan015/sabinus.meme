@@ -3,6 +3,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "./components/header";
 import { AuthContextProvider } from "../context/auth-context";
+import { ThemeProvider } from "next-themes";import cn from "./utils/cn";
+;
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -24,11 +26,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={poppins.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(
+        "bg-gradient-to-b from-clr-light-start-rgb to-clr-light-end-rgb dark:from-clr-dark-start-rgb dark:to-clr-dark-end-rgb",
+        `${poppins.className}`
+      )}>
         <AuthContextProvider>
-          <Header />
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableColorScheme
+            enableSystem>
+            <Header />
+            {children}
+          </ThemeProvider>
         </AuthContextProvider>
       </body>
     </html>

@@ -25,12 +25,12 @@ const ToggleFavourite: FC<Props> = ({ meme, handleRemoveFromFavourite }) => {
         if (handleRemoveFromFavourite) {
           handleRemoveFromFavourite?.(meme.public_id);
           setTimeout(() => {
-            setToggleIsFavourite((prev) => (prev = !prev));
+            setToggleIsFavourite((prev) => !prev);
           }, 1500);
         } else {
           toggleFavouritesAction(meme.public_id, isFavourite);
           setTimeout(() => {
-            setToggleIsFavourite((prev) => (prev = !prev));
+            setToggleIsFavourite((prev) => !prev);
           }, 1500);
         }
       }}
@@ -38,7 +38,7 @@ const ToggleFavourite: FC<Props> = ({ meme, handleRemoveFromFavourite }) => {
       {toggleIsFavourite ? (
         <MdiHeart className="text-red-500 w-full h-full hover:text-blue-500 transition-all" />
       ) : (
-        <MdiHeartOutline className="w-full h-full text-blue-500 hover:text-red-500 transition-all" />
+        <MdiHeartOutline className="w-full h-full text-blue hover:text-red-500 transition-all" />
       )}
     </button>
   );

@@ -7,10 +7,9 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
 
-const supabase = createClient();
-const origin = (headers() as unknown as UnsafeUnwrappedHeaders).get("origin");
-
 export async function signIn(formData: FormData) {
+  const supabase = await createClient();
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email: formData.email,
     password: formData.password,
@@ -27,6 +26,8 @@ export async function signIn(formData: FormData) {
 }
 
 export async function signUp(formData: FormData) {
+  const supabase = await createClient();
+
   const { data, error } = await supabase.auth.signUp({
     email: formData.email,
     password: formData.password,
@@ -69,6 +70,9 @@ export async function signUp(formData: FormData) {
 }
 
 export const handleGoogleSignUp = async (provider: Provider) => {
+  const supabase = await createClient();
+  const origin = (headers() as unknown as UnsafeUnwrappedHeaders).get("origin");
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
     options: {
@@ -88,6 +92,8 @@ export const handleGoogleSignUp = async (provider: Provider) => {
 };
 
 export const signOut = async () => {
+  const supabase = await createClient();
+
   console.log("user just logged out");
   const { error } = await supabase.auth.signOut();
 

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const body = await request.json();
 
   const { username, email, password } = body;

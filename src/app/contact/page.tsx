@@ -26,18 +26,18 @@ const Contact = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-[2.5rem] font-bold w-2/3 text-center m-auto">
+    <div className="w-full min-h-[calc(100dvh-8rem)] mt-[8rem] flex flex-col items-center gap-5">
+      <h1 className="text-[2.5rem] font-bold w-2/3 text-center">
         Contact Us
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="w-1/2 mx-auto flex flex-col items-center"
+        className="w-1/2 flex flex-col items-center"
       >
         <div className="mb-4">
           <label
             htmlFor="name"
-            className="block text-lg font-medium text-gray-700 mb-3"
+            className="block text-lg font-medium text-gray-700 dark:text-clr-dark mb-1"
           >
             Name
           </label>
@@ -48,13 +48,13 @@ const Contact = () => {
             value={form.name}
             onChange={handleChange}
             required
-            className="w-[20rem] h-16 bg-gray-100 dark:text-black rounded-xl text-center p-4 border border-white transition-all hover:border-blue-400 file:border-blue-500 file:rounded-lg cursor-pointer file:cursor-pointer"
+            className="w-[25rem] h-10 bg-gray-100 dark:text-black rounded-xl p-4 border border-white transition-all hover:border-blue cursor-pointer"
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="email"
-            className="block text-lg font-medium text-gray-700 mb-3"
+            className="block text-lg font-medium text-gray-700 dark:text-clr-dark mb-1"
           >
             Email
           </label>
@@ -65,13 +65,13 @@ const Contact = () => {
             value={form.email}
             onChange={handleChange}
             required
-            className="w-[20rem] h-16 bg-gray-100 dark:text-black rounded-xl text-center p-4 border border-white transition-all hover:border-blue-400 file:border-blue-500 file:rounded-lg cursor-pointer file:cursor-pointer"
+            className="w-[25rem] h-10 bg-gray-100 dark:text-black rounded-xl p-4 border border-white transition-all hover:border-blue cursor-pointer"
           />
         </div>
         <div className="mb-4">
           <label
             htmlFor="message"
-            className="block text-lg font-medium text-gray-700 mb-3"
+            className="block text-lg font-medium text-gray-700 dark:text-clr-dark mb-1"
           >
             Message
           </label>
@@ -81,12 +81,12 @@ const Contact = () => {
             value={form.message}
             onChange={handleChange}
             required
-            className="w-[20rem] h-16 bg-gray-100 dark:text-black rounded-xl text-center p-4 border border-white transition-all hover:border-blue-400 file:border-blue-500 file:rounded-lg cursor-pointer file:cursor-pointer"
+            className="w-[25rem] h-[10rem] bg-gray-100 dark:text-black rounded-xl p-4 border border-white transition-all hover:border-blue cursor-pointer"
           />
         </div>
         <button
           type="submit"
-          className="w-max px-6 py-4 bg-blue-500 hover:bg-blue-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
+          className="w-[10rem] py-3 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
         >
           Submit
         </button>

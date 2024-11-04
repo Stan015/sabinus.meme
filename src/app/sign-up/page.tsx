@@ -24,10 +24,10 @@ const Signup = () => {
   };
 
   return (
-    <div className="h-[calc(100svh-6rem)] flex items-center justify-center bg-gray-100 ">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <section className="min-h-dvh w-full flex items-center justify-center ">
+      <div className="bg-white mt-[6rem] p-8 rounded shadow-md w-full max-w-md">
         <form action={handleSubmit}>
-          <h2 className="text-[2.5rem] font-bold mb-6 text-center">Sign Up</h2>
+          <h1 className="text-[2.5rem] dark:text-clr-light font-bold mb-6 text-center">Sign Up</h1>
           <div className="mb-4">
             <label
               className="block text-lg font-medium text-gray-700 mb-3"
@@ -41,7 +41,7 @@ const Signup = () => {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"
               required
             />
           </div>
@@ -58,7 +58,7 @@ const Signup = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"
               required
             />
           </div>
@@ -75,7 +75,7 @@ const Signup = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full p-2 border border-gray-300 rounded"
+              className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"
               required
             />
           </div>
@@ -99,7 +99,7 @@ const Signup = () => {
           </Button>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 

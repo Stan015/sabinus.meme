@@ -108,7 +108,7 @@ export default function Upload() {
   console.log(isPopoverVisible);
 
   return (
-    <section className="flex flex-col gap-6 mt-6 mb-10 px[10%] items-center w-full h-full">
+    <section className="flex flex-col gap-6 mt-[7rem] mb-10 px[10%] items-center w-full min-h-[calc(100dvh-9.5rem)]">
       <h1 className="text-[2.5rem] font-bold w-2/3 text-center">
         Before you upload, try searching to see if the meme already exists.
       </h1>
@@ -126,7 +126,7 @@ export default function Upload() {
               {({ open }) => {
                 return (
                   <button
-                    className="w-max px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
+                    className="w-max px-4 py-2 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
                     type="button"
                     onClick={() => open()}
                   >
@@ -136,7 +136,7 @@ export default function Upload() {
               }}
             </CldUploadWidget> */}
             <input
-              className="w-[20rem] h-16 bg-gray-100 dark:text-black rounded-xl text-center p-4 border border-white transition-all hover:border-blue-400 file:border-blue-500 file:rounded-lg cursor-pointer file:cursor-pointer"
+              className="w-[20rem] h-16 bg-gray-100 dark:text-clr-light rounded-xl text-center p-4 border border-white dark:border-blue hover:border-blue-deep transition-all file:border-blue file:rounded-lg dark:file:bg-dark cursor-pointer file:cursor-pointer"
               type="file"
               name="memeFile"
               id="memeFile"
@@ -181,11 +181,11 @@ export default function Upload() {
 
             <div className="w-max h-max block relative">
               <button
-                className="w-max px-6 py-4 bg-blue-500 hover:bg-blue-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
+                className="w-max px-6 py-4 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
                 type="button"
                 {...{
-                  popovertarget: "upload-warning",
-                  popovertargetaction: "show",
+                  popoverTarget: "upload-warning",
+                  popoverTargetAction: "show",
                 }}
                 onClick={() => setIsPopoverVisible(true)}
               >
@@ -193,7 +193,7 @@ export default function Upload() {
               </button>
 
               <div
-                className="w-[24rem] max-sm:-[18rem] p-4 border-[5px] border-blue-500 rounded-xl bg-gray-100 backdrop:bg-black backdrop:opacity-[0.8] absolute top-[-15rem] text-base"
+                className="w-[24rem] max-sm:-[18rem] p-4 border-[5px] border-blue rounded-xl bg-gray-100 dark:bg-dark backdrop:bg-dark backdrop:opacity-[0.8] absolute top-[-15rem] text-base"
                 id="upload-warning"
                 popover="auto"
               >
@@ -219,15 +219,15 @@ export default function Upload() {
                     className="w-max px-4 py-2 bg-red-500 hover:bg-red-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
                     type="button"
                     {...{
-                      popovertarget: "upload-warning",
-                      popovertargetaction: "hide",
+                      popoverTarget: "upload-warning",
+                      popoverTargetAction: "hide",
                     }}
                     onClick={() => setIsPopoverVisible(false)}
                   >
                     Cancel
                   </button>
                   <button
-                    className="w-max px-4 py-2 bg-blue-500 hover:bg-blue-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
+                    className="w-max px-4 py-2 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
                     type="submit"
                   >
                     Upload Meme

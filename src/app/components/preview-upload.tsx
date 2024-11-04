@@ -15,7 +15,7 @@ const PreviewUpload: FC<Props> = ({ image, previewSize }) => {
     <div className="w-full h-max mt-6">
       <h3 className="font-bold text-md">Preview</h3>
       <span
-        className={`block w-[320px] h-[400px] mt-2 rounded-xl bg-gray-100 border-[5px] border-blue-500 overflow-hidden`}
+        className={"block w-[320px] h-[400px] mt-2 rounded-xl bg-gray-100 border-[5px] border-blue overflow-hidden"}
         style={{
           width: `${previewSize.width <= 320 ? previewSize.width : 320}px`,
           height: `${previewSize.height <= 550 ? previewSize.height : 400}px`,

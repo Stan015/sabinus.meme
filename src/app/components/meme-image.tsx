@@ -11,7 +11,7 @@ type MemeResources = {
 export default function MemeImage(memeResources: MemeResources) {
   return (
     <CldImage
-      className="w-full h-full border-[5px] border-blue-500 rounded-3xl"
+      className="w-full h-full border-[5px] border-blue rounded-3xl"
       src={memeResources.secure_url}
       width={memeResources.height / 1.4}
       height={memeResources.height / 1.4}

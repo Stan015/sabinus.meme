@@ -27,8 +27,8 @@ export default function Login() {
   };
 
   return (
-    <div className="h-[calc(100svh-6rem)] flex items-center justify-center bg-gray-100 ">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <section className="min-h-dvh w-full flex items-center justify-center ">
+      <div className="bg-white mt-[6rem] p-8 rounded shadow-md w-full max-w-md">
         <LoginForm
           formData={formData}
           handleChange={handleChange}
@@ -36,7 +36,7 @@ export default function Login() {
         />
         <Button
           onClick={async () => await handleGoogleSignUp("google")}
-          className="flex gap-4 items-center justify-center mt-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
+          className="flex gap-2 items-center justify-center mt-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
         >
           <Image
             src="/icons8-google-48.png"
@@ -44,9 +44,9 @@ export default function Login() {
             width={17}
             height={17}
           />
-          Sign Up with Google
+          Sign In with Google
         </Button>
       </div>
-    </div>
+    </section>
   );
 }
