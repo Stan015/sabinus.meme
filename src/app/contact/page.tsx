@@ -26,8 +26,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="w-full min-h-[calc(100dvh-8rem)] mt-[8rem] flex flex-col items-center gap-5">
-      <h1 className="text-[2.5rem] font-bold w-2/3 text-center">Contact Us</h1>
+    <div className="w-full min-h-dvh mt-[8rem] px-[10%] flex flex-col items-center gap-5">
+      <h1 className="text-[2.5rem] max-md:text-[1.5rem] font-bold w-2/3 text-center">
+        Contact Us
+      </h1>
       <form
         onSubmit={handleSubmit}
         className="w-1/2 flex flex-col items-center"
@@ -45,8 +47,9 @@ const Contact = () => {
             name="name"
             value={form.name}
             onChange={handleChange}
+            placeholder="Enter your name"
             required
-            className="w-[25rem] h-10 bg-gray-100 dark:text-black rounded-xl p-4 border border-white transition-all hover:border-blue cursor-pointer"
+            className="w-[25rem] max-sm:w-[18.5rem] h-10 bg-gray-100 dark:text-black rounded-xl p-4 border border-white transition-all hover:border-blue cursor-pointer"
           />
         </div>
         <div className="mb-4">
@@ -62,8 +65,9 @@ const Contact = () => {
             name="email"
             value={form.email}
             onChange={handleChange}
+            placeholder="Enter your email"
             required
-            className="w-[25rem] h-10 bg-gray-100 dark:text-black rounded-xl p-4 border border-white transition-all hover:border-blue cursor-pointer"
+            className="w-[25rem] max-sm:w-[18.5rem] h-10 bg-gray-100 dark:text-black rounded-xl p-4 border border-white transition-all hover:border-blue cursor-pointer"
           />
         </div>
         <div className="mb-4">
@@ -78,13 +82,14 @@ const Contact = () => {
             name="message"
             value={form.message}
             onChange={handleChange}
+            placeholder="Enter your message..."
             required
-            className="w-[25rem] h-[10rem] bg-gray-100 dark:text-black rounded-xl p-4 border border-white transition-all hover:border-blue cursor-pointer"
+            className="w-[25rem] max-sm:w-[18.5rem] h-[10rem] bg-gray-100 dark:text-black rounded-xl p-4 border border-white transition-all hover:border-blue cursor-pointer"
           />
         </div>
         <button
           type="submit"
-          className="w-[10rem] py-3 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
+          className="w-[10rem] max-sm:w-[18.5rem] py-3 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
         >
           Submit
         </button>

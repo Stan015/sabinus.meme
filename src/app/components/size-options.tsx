@@ -38,7 +38,7 @@ const SizeOptions: FC<Props> = ({
           )}
         </span>
       </div>
-      <span className="flex gap-2 flex-wrap max-w-[24rem]">
+      <span className="flex gap-2 flex-wrap max-md:justify-center max-w-[24rem]">
         {previewSizeOptions.map((option, index) => {
           const previewInputValue = `${previewSize.width} x ${previewSize.height}`;
           const currentSize = `${option.width} x ${option.height}`;
@@ -60,8 +60,8 @@ const SizeOptions: FC<Props> = ({
               type="button"
               className={
                 selectedSize
-                  ? "bg-blue hover:bg-blue text-clr-dark dark:text-clr-dark transition-all px-3 py-1 rounded-2xl relative"
-                  : "bg-gray-100 hover:bg-blue hover:text-white dark:text-clr-light transition-all px-3 py-1 rounded-2xl relative"
+                  ? "bg-blue hover:bg-blue text-clr-dark dark:text-clr-dark transition-all px-3 py-1 rounded-2xl relative border-[1px] border-blue "
+                  : "bg-gray-100 hover:bg-blue hover:text-white dark:text-clr-light transition-all px-3 py-1 rounded-2xl relative border-[1px] border-blue "
               }
               onClick={() => {
                 setPreviewSize({
@@ -73,7 +73,7 @@ const SizeOptions: FC<Props> = ({
             >
               <span>{option.width}</span> x <span>{option.height}</span>
               {originalSize && isFirstButton && (
-                <span className="absolute -right-1 -top-[0.8rem] text-blue-500">
+                <span className="absolute -right-1 -top-[0.8rem] text-blue">
                   ☆
                 </span>
               )}

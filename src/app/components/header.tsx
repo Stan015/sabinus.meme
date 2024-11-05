@@ -31,7 +31,11 @@ export default function Header() {
         )}
       >
         <div className="flex gap-4 max-md:w-[80%] items-center justify-between max-md:h-[6rem] max-md:top-0 max-md:fixed">
-          <Link href={"/"} aria-label="logo">
+          <Link
+            href={"/"}
+            aria-label="logo"
+            onClick={() => setMenuExpanded(false)}
+          >
             <Image
               className="w-full h-full"
               src={"/logo.png"}
@@ -44,15 +48,15 @@ export default function Header() {
 
           <button
             onClick={handleToggleMenu}
-            className="hidden transition-all rounded-full border border-transparent hover:border-blue-deep p-[5px] max-md:flex place-items-center"
+            className="hidden transition-all rounded-full max-md:flex place-items-center"
             type="button"
             aria-label="toggle menu"
             aria-expanded={menuExpanded ? "true" : "false"}
           >
             {!menuExpanded ? (
-              <MarketeqMenuAlt className="w-[2.8rem] h-[2.8rem]" />
+              <MarketeqMenuAlt className="w-[2.6rem] h-[2.6rem]" />
             ) : (
-              <LineMdMenuToCloseTransition className="w-[2.8rem] h-[2.8rem] text-blue" />
+              <LineMdMenuToCloseTransition className="w-[2.6rem] h-[2.6rem] text-blue" />
             )}
           </button>
         </div>
@@ -65,24 +69,28 @@ export default function Header() {
         >
           <Link
             href={"/"}
+            onClick={handleToggleMenu}
             className="max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all"
           >
             Home
           </Link>
           <Link
             href={"/upload"}
+            onClick={handleToggleMenu}
             className="max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all"
           >
             Upload
           </Link>
           <Link
             href={"/favourites"}
+            onClick={handleToggleMenu}
             className="max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all"
           >
             Favourites
           </Link>
           <Link
             href={"/contact"}
+            onClick={handleToggleMenu}
             className="max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all"
           >
             Contact
@@ -100,27 +108,32 @@ export default function Header() {
           <ToggleTheme classNameProp="absolute top-[3px]" />
 
           {!isLoggedIn ? (
-            <nav className="flex max-md:flex-col max-md:w-[7rem] gap-6">
+            <nav className="flex max-md:flex-col max-md:w-[7rem] items-center gap-6">
               <Link
                 href={"/login"}
+                onClick={handleToggleMenu}
                 className="max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all"
               >
                 Login
               </Link>
               <Link
                 href={"/sign-up"}
+                onClick={handleToggleMenu}
                 className="max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all"
               >
                 Sign Up
               </Link>
             </nav>
           ) : (
-            <Link
-              href={"/dashboard"}
-              className="group w-12 h-12 p-1 rounded-full border-2 border-blue hover:border-blue-deep transition-all"
-            >
-              <MdiUser className="w-full h-full text-clr-light dark:text-clr-dark group-hover:text-blue-500" />
-            </Link>
+            <div className="flex max-md:flex-col max-md:w-[7rem] items-center gap-6">
+              <Link
+                href={"/dashboard"}
+                onClick={handleToggleMenu}
+                className="group w-12 h-12 p-1 rounded-full border-2 border-blue hover:border-blue-deep transition-all"
+              >
+                <MdiUser className="w-full h-full text-clr-light dark:text-clr-dark group-hover:text-blue-500" />
+              </Link>
+            </div>
           )}
         </div>
       </header>

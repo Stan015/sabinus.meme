@@ -108,8 +108,8 @@ export default function Upload() {
   console.log(isPopoverVisible);
 
   return (
-    <section className="flex flex-col gap-6 mt-[7rem] mb-10 px[10%] items-center w-full min-h-[calc(100dvh-9.5rem)]">
-      <h1 className="text-[2.5rem] font-bold w-2/3 text-center">
+    <section className="flex flex-col gap-6 max-sm:gap-4 mt-[7rem] mb-10 px-[10%] items-center w-full min-h-[calc(100dvh-9.5rem)]">
+      <h1 className="text-[2.5rem] max-lg:text-[1.5rem] max-md:text-[1.3rem] max-sm:text-base text-pretty font-bold text-center w-11/12 lg:w-3/4">
         Before you upload, try searching to see if the meme already exists.
       </h1>
       <div className="flex w-full h-auto justify-center">
@@ -117,7 +117,7 @@ export default function Upload() {
           className="w-max h-max flex flex-wrap justify-center gap-6 items-start"
           action={uploadAction}
         >
-          <div className="w-max h-max p-6">
+          <div className="w-max h-max p-6 max-sm:p-0">
             {/* <CldUploadWidget
               uploadPreset="sabinus_preset"
               options={{ sources: ["local"] }}
@@ -149,7 +149,7 @@ export default function Upload() {
             <PreviewUpload image={image} previewSize={previewSize} />
           </div>
 
-          <div className="w-max h-max p-6 flex flex-col gap-6">
+          <div className="w-max max-sm:w-[20rem] max-sm:p-0 max-md:items-center h-max p-6 flex flex-col gap-6">
             {/* <div className="flex flex-col gap-1">
               <label className="font-bold text-md" htmlFor="memeDescription">
                 Description

@@ -34,13 +34,13 @@ async function Home() {
   return (
     <>
       <main className="flex flex-col w-full min-h-[calc(100dvh-9.5rem)] mt-[6rem] items-center px-[10%] my-20">
-        <section className="w-full flex flex-col items-center gap-10 mt-6 mb-[3.5rem]">
-          <h1 className="text-[2.5rem] font-bold text-center w-3/4">
+        <section className="w-full flex flex-col items-center gap-10 max-sm:gap-5 mt-6 mb-[3.5rem] max-sm:mb-[2rem]">
+          <h1 className="text-[2.5rem] max-lg:text-[1.5rem] max-md:text-[1.3rem] max-sm:text-base text-pretty font-bold text-center w-11/12 lg:w-3/4">
             Sabinus Memes Library. Search, download, upload, share and laugh
             with me!
           </h1>
           <input
-            className="w-3/4 h-14 bg-gray-100 rounded-full px-10 flex border hover:border-blue-400 text-clr-light dark:text-clr-light transition-all border-white hover:border-blue text-md ring-offset-blue-deep ring-offset-[0.6px] file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-3/4 h-14 max-sm:w-full max-sm:h-10 px-10 max-md:px-5 max-sm:px-3 max-sm:text-[0.7rem] max-md:text-base bg-gray-100 rounded-full flex border hover:border-blue-400 text-clr-light dark:text-clr-light transition-all border-white hover:border-blue text-md ring-offset-blue-deep ring-offset-[0.6px] file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             type="text"
             placeholder="Search memes by description, expression or keywords. E.g, investor's vibe, crying, laughing, in trouble..."
           />

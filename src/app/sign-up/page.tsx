@@ -24,7 +24,7 @@ const Signup = () => {
   };
 
   return (
-    <section className="min-h-dvh w-full flex items-center justify-center ">
+    <section className="min-h-dvh w-full flex px-[10%] max-md:my-5 items-center justify-center ">
       <div className="bg-white mt-[6rem] p-8 rounded shadow-md w-full max-w-md">
         <form action={handleSubmit}>
           <h1 className="text-[2.5rem] dark:text-clr-light font-bold mb-6 text-center">
@@ -42,6 +42,7 @@ const Signup = () => {
               id="username"
               name="username"
               value={formData.username}
+              placeholder="Enter your username"
               onChange={handleChange}
               className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"
               required
@@ -58,6 +59,7 @@ const Signup = () => {
               type="email"
               id="email"
               name="email"
+              placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
               className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"
@@ -75,6 +77,7 @@ const Signup = () => {
               type="password"
               id="password"
               name="password"
+              placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
               className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"

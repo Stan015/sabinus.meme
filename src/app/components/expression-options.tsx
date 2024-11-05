@@ -34,7 +34,7 @@ const ExpressionOptions: FC<Props> = ({
           required
         />
       </span>
-      <span className="flex gap-2 flex-wrap max-w-[24rem]">
+      <span className="flex gap-2 flex-wrap max-md:justify-center max-w-[24rem]">
         {expressionOptions.map((option, index) => {
           let selected = false;
 
@@ -48,8 +48,8 @@ const ExpressionOptions: FC<Props> = ({
               type="button"
               className={
                 selected
-                  ? "bg-blue hover:bg-blue text-white transition-all px-3 py-1 rounded-2xl relative"
-                  : "bg-gray-100 hover:bg-blue hover:text-white dark:text-clr-light dark:hover:text-clr-dark transition-all px-3 py-1 rounded-2xl relative"
+                  ? "bg-blue hover:bg-blue text-white transition-all px-3 py-1 rounded-2xl relative border-[1px] border-blue "
+                  : "bg-gray-100 hover:bg-blue hover:text-white dark:text-clr-light dark:hover:text-clr-dark transition-all px-3 py-1 border-[1px] border-blue rounded-2xl relative"
               }
               onClick={() => handleAddExpression(option)}
             >
