@@ -48,7 +48,7 @@ export default function Favourites() {
   }, [memes, justRemovedFromFav]);
 
   return (
-    <main className="mt-[7rem] px-[10%] flex flex-col items-center gap-8 w-full min-h-[calc(100dvh-7rem)]">
+    <main className="mt-[7rem] px-[10%] flex flex-col items-center gap-8 w-full min-h-[calc(100dvh-15rem)] mb-[2rem]">
       <h1 className="text-[2.5rem] max-lg:text-[1.5rem] max-md:text-[1.3rem] max-sm:text-base text-pretty font-bold text-center w-11/12 lg:w-3/4">
         My Favourites
       </h1>

@@ -24,7 +24,7 @@ const Signup = () => {
   };
 
   return (
-    <section className="min-h-dvh w-full flex px-[10%] max-md:my-5 items-center justify-center ">
+    <section className="min-h-[calc(100dvh-8rem)] mb-[2rem] w-full flex px-[10%] max-md:my-5 items-center justify-center ">
       <div className="bg-white mt-[6rem] p-8 rounded shadow-md w-full max-w-md">
         <form action={handleSubmit}>
           <h1 className="text-[2.5rem] dark:text-clr-light font-bold mb-6 text-center">

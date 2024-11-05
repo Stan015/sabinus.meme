@@ -26,7 +26,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="w-full min-h-dvh mt-[8rem] px-[10%] flex flex-col items-center gap-5">
+    <div className="w-full min-h-[calc(100dvh-16rem)] mb-[2rem] mt-[8rem] px-[10%] flex flex-col items-center gap-5">
       <h1 className="text-[2.5rem] max-md:text-[1.5rem] font-bold w-2/3 text-center">
         Contact Us
       </h1>

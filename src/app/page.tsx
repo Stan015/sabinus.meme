@@ -33,7 +33,7 @@ async function Home() {
 
   return (
     <>
-      <main className="flex flex-col w-full min-h-[calc(100dvh-9.5rem)] mt-[6rem] items-center px-[10%] my-20">
+      <main className="flex flex-col w-full min-h-[calc(100dvh-9.5rem)] mt-[6rem] items-center px-[10%] mb-20">
         <section className="w-full flex flex-col items-center gap-10 max-sm:gap-5 mt-6 mb-[3.5rem] max-sm:mb-[2rem]">
           <h1 className="text-[2.5rem] max-lg:text-[1.5rem] max-md:text-[1.3rem] max-sm:text-base text-pretty font-bold text-center w-11/12 lg:w-3/4">
             Sabinus Memes Library. Search, download, upload, share and laugh

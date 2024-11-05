@@ -19,7 +19,7 @@ const Dashboard = () => {
   };
 
   return (
-    <section className="w-full min-h-[calc(100dvh-7rem)] mt-[7rem]">
+    <section className="w-full min-h-[calc(100dvh-15rem)] mb-[2rem] mt-[7rem]">
       <h1>Hello Dashboard</h1>
       <Button type="button" onClick={handleSignOut}>
         Sign Out

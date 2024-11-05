@@ -27,7 +27,7 @@ export default function Login() {
   };
 
   return (
-    <section className="min-h-dvh w-full px-[10%] max-md:my-5 flex items-center justify-center ">
+    <section className="min-h-[calc(100dvh-8rem)] mb-[2rem] w-full px-[10%] max-md:my-5 flex items-center justify-center ">
       <div className="bg-white mt-[6rem] p-8 rounded shadow-md w-full max-w-md">
         <LoginForm
           formData={formData}
