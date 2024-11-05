@@ -17,7 +17,7 @@ export default function Favourites() {
     memeID: "",
     justRemoved: false,
   });
-  
+
   useEffect(() => {
     const fetchFavourites = async () => {
       const response = await getFavouriteMemesAction();
@@ -47,7 +47,7 @@ export default function Favourites() {
     }
   }, [memes, justRemovedFromFav]);
 
-  return (      
+  return (
     <main className="mt-[7rem] px-[10%] flex flex-col items-center gap-8 w-full min-h-[calc(100dvh-7rem)]">
       <h1 className="text-[2.5rem] font-bold text-center w-3/4">
         My Favourites
@@ -66,9 +66,9 @@ export default function Favourites() {
           <Suspense fallback={<p>Loading...</p>}>
             {memes.map((meme: Meme) => (
               <div
-                className={
-                  cn("h-max overflow-hidden relative",
-                  `w-[${meme.width / 1.4}px]`
+                className={cn(
+                  "h-max overflow-hidden relative",
+                  `w-[${meme.width / 1.4}px]`,
                 )}
                 key={meme.public_id}
               >

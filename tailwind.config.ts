@@ -21,11 +21,11 @@ const config: Config = {
         "clr-light-end-rgb": "rgb(255, 255, 255)",
         "clr-dark": "rgb(255, 255, 255)",
         "clr-dark-start-rgb": "rgb(0, 0, 0)",
-        "clr-dark-end-rgb": "rgb(0, 0, 0)"
+        "clr-dark-end-rgb": "rgb(0, 0, 0)",
       },
       backgroundColor: {
-        "light": "rgb(214, 219, 220)",
-        "dark": "rgb(0, 0, 0)"
+        light: "rgb(214, 219, 220)",
+        dark: "rgb(0, 0, 0)",
       },
     },
   },

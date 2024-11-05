@@ -11,14 +11,14 @@ type Props = {
 const ToggleTheme: FC<Props> = ({ classNameProp }) => {
   const [mounted, setMouted] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
-  
+
   useEffect(() => setMouted(true), []);
-  
+
   const handleThemeToggle = () => {
     if (resolvedTheme === "light") setTheme("dark");
     if (resolvedTheme === "dark") setTheme("light");
   };
-  
+
   const themeClass = mounted
     ? resolvedTheme === "dark"
       ? "justify-end bg-white"
@@ -34,7 +34,7 @@ const ToggleTheme: FC<Props> = ({ classNameProp }) => {
         className={cn(
           "flex items-center w-8 h-4 px-1 py-[0.5px] rounded-2xl transition-all duration-300",
           classNameProp,
-          themeClass
+          themeClass,
         )}
       >
         <span className="block w-3 h-3 bg-blue-deep rounded-full" />

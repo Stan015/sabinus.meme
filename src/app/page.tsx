@@ -36,8 +36,8 @@ async function Home() {
       <main className="flex flex-col w-full min-h-[calc(100dvh-9.5rem)] mt-[6rem] items-center px-[10%] my-20">
         <section className="w-full flex flex-col items-center gap-10 mt-6 mb-[3.5rem]">
           <h1 className="text-[2.5rem] font-bold text-center w-3/4">
-            Sabinus Memes Library. Search, download, upload, share and laugh with
-            me!
+            Sabinus Memes Library. Search, download, upload, share and laugh
+            with me!
           </h1>
           <input
             className="w-3/4 h-14 bg-gray-100 rounded-full px-10 flex border hover:border-blue-400 text-clr-light dark:text-clr-light transition-all border-white hover:border-blue text-md ring-offset-blue-deep ring-offset-[0.6px] file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue dark:focus-visible:ring-white focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -48,7 +48,10 @@ async function Home() {
         <div className="w-full columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5 [&>div:not(:first-child)]:mt-4">
           {resources.map((meme: Meme) => (
             <div
-              className={cn("h-max overflow-hidden relative", `w-[${meme.width / 1.4}px]`)}
+              className={cn(
+                "h-max overflow-hidden relative",
+                `w-[${meme.width / 1.4}px]`,
+              )}
               key={meme.public_id}
             >
               <ToggleFavourite meme={meme} />

@@ -78,9 +78,57 @@ export function MdiUser(props: SVGProps<SVGSVGElement>) {
       fill="currentColor"
       {...props}
     >
+      <path d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"></path>
+    </svg>
+  );
+}
+
+export function MarketeqMenuAlt(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.2em"
+      height="1.2em"
+      viewBox="0 0 50 50"
+      {...props}
+    >
+      <g
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={4}
+      >
+        <path stroke="#344054" d="M6.25 25h37.5"></path>
+        <path stroke="#3B82F6" d="M6.25 12.5h37.5m-37.5 25h37.5z"></path>
+      </g>
+    </svg>
+  );
+}
+
+export function LineMdMenuToCloseTransition(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.2em"
+      height="1.2em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
       <path
-        d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"
-      ></path>
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19"
+      >
+        <animate
+          fill="freeze"
+          attributeName="d"
+          dur="0.4s"
+          values="M5 5L12 5L19 5M5 12H19M5 19L12 19L19 19;M5 5L12 12L19 5M12 12H12M5 19L12 12L19 19"
+        ></animate>
+      </path>
     </svg>
   );
 }

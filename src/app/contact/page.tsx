@@ -27,9 +27,7 @@ const Contact = () => {
 
   return (
     <div className="w-full min-h-[calc(100dvh-8rem)] mt-[8rem] flex flex-col items-center gap-5">
-      <h1 className="text-[2.5rem] font-bold w-2/3 text-center">
-        Contact Us
-      </h1>
+      <h1 className="text-[2.5rem] font-bold w-2/3 text-center">Contact Us</h1>
       <form
         onSubmit={handleSubmit}
         className="w-1/2 flex flex-col items-center"
