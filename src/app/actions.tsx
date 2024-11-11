@@ -4,6 +4,8 @@ import type { Meme } from "@/types";
 import { z } from "zod";
 import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
+import { createClient } from "./utils/supabase/server";
+import { headers } from "next/headers";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -13,66 +15,70 @@ cloudinary.config({
 });
 
 export const uploadAction = async (formData: FormData) => {
-  const schema = z.object({
-    memeFile: z.string(),
-    // memeDescription: z.string(),
-    memeExpression: z.string(),
-    imageSize: z.string(),
-    confirmedMeme: z.boolean(),
-  });
-
   const memeFileInput = (formData.get("memeFile") as File) || null;
-
-  const memeFile = memeFileInput ? memeFileInput.name : "";
-  //   const memeDescription =
-  //     formData.get("memeDescription")?.toString().trim() || "";
+  // const memeDescription =
+  //   formData.get("memeDescription")?.toString().trim() || "";
   const memeExpression =
     formData.get("memeExpression")?.toString().trim() || "";
   const imageSize = formData.get("imageSize")?.toString().trim() || "";
   const confirmedMeme = formData.get("confirmedMeme") === "on";
 
-  const newFormValues: z.infer<typeof schema> = {
-    memeFile,
-    // memeDescription,
-    memeExpression,
-    imageSize,
-    confirmedMeme,
-  };
-
   const memeWidth = Number(imageSize.split("x")[0]);
   const memeHeight = Number(imageSize.split("x")[1]);
-
-  // console.log([imageSize.split('x'), {"width": `${[imageSize.split('x')[0]]}`, "height": `${[imageSize.split('x')[1]]}`}])
 
   const arrayBuffer = await memeFileInput.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
 
-  await new Promise((resolve, reject) => {
-    cloudinary.uploader
-      .upload_stream(
-        {
-          tags: ["sabinus", memeExpression],
-          upload_preset: "sabinus_preset",
-          image_metadata: true,
-          unique_filename: true,
-          resource_type: "image",
-          width: memeWidth,
-          height: memeHeight,
-        },
-        (error, result) => {
-          if (error) {
-            reject(reject);
-            return;
-          }
-          resolve(result);
-          console.log(result);
-        },
-      )
+  const user = (await (await createClient()).auth.getUser()).data.user;
 
-      .end(buffer);
-  });
+  if (confirmedMeme && user) {
+    try {
+      const response = await fetch("http://localhost:3000/api/get-username", {
+        method: "GET",
+        headers: {
+          "x-user-email": `${user.email}`,
+        },
+      });
 
-  // console.log(newFormValues);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      if (!data.username) {
+        throw new Error("Username not found in response");
+      }
+
+      await new Promise((resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            {
+              tags: ["sabinus", memeExpression],
+              upload_preset: "sabinus_preset",
+              folder: `sabinus-memes/${data.username}`,
+              image_metadata: true,
+              unique_filename: true,
+              resource_type: "image",
+              width: memeWidth,
+              height: memeHeight,
+            },
+            (error, result) => {
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve(result);
+              console.log(result);
+            },
+          )
+          .end(buffer);
+      });
+    } catch (error) {
+      console.error("Failed to fetch username or upload image:", error);
+    }
+  }
 
   revalidatePath("/");
 };
