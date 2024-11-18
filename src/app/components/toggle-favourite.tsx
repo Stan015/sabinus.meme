@@ -19,7 +19,7 @@ const ToggleFavourite = memo(function ToggleFavourite ({ username, meme, handleR
   
   useEffect(() => {
     if (username) {
-      setIsFavourite(() => ["favourite", username].every(tag => meme.tags?.includes(tag)));
+      setIsFavourite(() => meme.tags.includes(`favourite-${username}`));
     } 
   }, [username, meme])
 

@@ -98,12 +98,12 @@ export const toggleFavouritesAction = async (
 
     if (!isFavourite) {
       await cloudinary.uploader.add_tag(
-        ["favourite", `${username}`],
+        `favourite-${username}`,
         [publicID],
       );
     } else {
       await cloudinary.uploader.remove_tag(
-        ["favourite", `${username}`],
+        `favourite-${username}`,
         [publicID],
       );
     }
@@ -127,7 +127,7 @@ export const getFavouriteMemesAction = async (
 
     const { resources } = await cloudinary.search
       .expression(
-        `resource_type:image AND folder:sabinus-memes AND tags=favourite AND tags=${username}`,
+        `resource_type:image AND folder:sabinus-memes AND tags=favourite-${username}`,
       )
       .sort_by("uploaded_at", "desc")
       .with_field("tags")
