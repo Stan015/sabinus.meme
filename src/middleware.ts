@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { fetchUsername } from "@/utils/fetchUsername";
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -19,7 +20,7 @@ export async function middleware(request: NextRequest) {
     const userChecked = request.cookies.get("userChecked");
 
     if (userChecked?.value === "false") {
-      const userEmail = user.email!;
+      const userEmail = user.email as string;
       response.headers.set("x-user-email", userEmail);
 
       await fetch(`${request.nextUrl.origin}/api/check-user-on-db`, {
@@ -28,11 +29,16 @@ export async function middleware(request: NextRequest) {
           "x-user-email": userEmail,
         },
       });
-
+      
       response.cookies.set("userChecked", "true", { httpOnly: true });
+      
+      const username = await fetchUsername();
+      
+      response.cookies.set("username", username as string, { httpOnly: true, sameSite: "strict" });
     }
   } else {
     response.cookies.set("userChecked", "false", { httpOnly: true });
+    response.cookies.set("username", '', { httpOnly: true, sameSite: "strict" });
   }
 
   // if (!user) console.log("no user logged in");

@@ -4,6 +4,7 @@ import { v2 as cloudinary } from "cloudinary";
 import MemeImage from "./components/meme-image";
 import ToggleFavourite from "./components/toggle-favourite";
 import cn from "./utils/cn";
+import { cookies } from "next/headers";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -28,9 +29,10 @@ async function Home() {
     .with_field("tags")
     // .max_results(30)
     .execute();
-
-  // console.log(resources);
-
+  
+  const coockiesStore = await cookies();
+  const username = coockiesStore.get("username")?.value || null;
+  
   return (
     <>
       <main className="flex flex-col w-full min-h-[calc(100dvh-9.5rem)] mt-[6rem] items-center px-[10%] mb-20">
@@ -54,7 +56,7 @@ async function Home() {
               )}
               key={meme.public_id}
             >
-              <ToggleFavourite meme={meme} />
+              <ToggleFavourite meme={meme} username={username} />
               <MemeImage
                 secure_url={meme.secure_url}
                 width={meme.width}

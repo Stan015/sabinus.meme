@@ -5,12 +5,14 @@ import MemeImage from "@/components/meme-image";
 import ToggleFavourite from "@/components/toggle-favourite";
 import type { Meme } from "@/types";
 import cn from "@/utils/cn";
-import { Suspense, useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { Suspense, useCallback, useEffect, useState } from "react";
 
 export default function Favourites() {
   const [memes, setMemes] = useState<Meme[]>([]);
   const [loaded, setLoaded] = useState(false);
-  const [justRemovedFromFav, setJustRemovedFromFav] = useState<{
+  const [username, setUsername] = useState<string | null>(null);
+const [justRemovedFromFav, setJustRemovedFromFav] = useState<{
     memeID: string;
     justRemoved: boolean;
   }>({
@@ -47,6 +49,22 @@ export default function Favourites() {
     }
   }, [memes, justRemovedFromFav]);
 
+  const fetchUsername = useCallback(async () => {
+    const userEmail = (await createClient().auth.getUser()).data.user?.email
+    const response = await fetch('/api/get-username', {
+      headers: {
+        "x-user-email": `${userEmail}`,
+      }
+    });
+    const data = await response.json();
+    
+    return data.username;
+  }, []);
+
+  useEffect(() => {
+    fetchUsername().then((name) => setUsername(name));
+  }, [fetchUsername]);
+
   return (
     <main className="mt-[7rem] px-[10%] flex flex-col items-center gap-8 w-full min-h-[calc(100dvh-15rem)] mb-[2rem]">
       <h1 className="text-[2.5rem] max-lg:text-[1.5rem] max-md:text-[1.3rem] max-sm:text-base text-pretty font-bold text-center w-11/12 lg:w-3/4">
@@ -73,6 +91,7 @@ export default function Favourites() {
                 key={meme.public_id}
               >
                 <ToggleFavourite
+                  username={username}
                   meme={meme}
                   handleRemoveFromFavourite={handleRemoveFromFavourite}
                 />

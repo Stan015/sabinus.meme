@@ -42,12 +42,12 @@
     "typescript": "^5.5.2"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx nano-staged",
-    "pre-push": "npm run format",
+    "pre-commit": "pnpm dlx nano-staged",
+    "pre-push": "pnpm run format",
     "preserveUnused": true
   },
   "nano-staged": {
-    "*.{js,ts,md,json}": "prettier --write"
+    "*.{js,ts,tsx,jsx,md,json}": "prettier --write"
   },
   "pnpm": {
     "overrides": {

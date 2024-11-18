@@ -1,11 +1,10 @@
 "use server";
 
 import type { Meme } from "@/types";
-import { z } from "zod";
 import { v2 as cloudinary } from "cloudinary";
 import { revalidatePath } from "next/cache";
-import { createClient } from "./utils/supabase/server";
-import { headers } from "next/headers";
+import type { NextRequest } from "next/server";
+import { fetchUsername } from "./utils/fetchUsername";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -14,7 +13,7 @@ cloudinary.config({
   secure: true,
 });
 
-export const uploadAction = async (formData: FormData) => {
+export const uploadAction = async (formData: FormData, req?: NextRequest) => {
   const memeFileInput = (formData.get("memeFile") as File) || null;
   // const memeDescription =
   //   formData.get("memeDescription")?.toString().trim() || "";
@@ -29,26 +28,12 @@ export const uploadAction = async (formData: FormData) => {
   const arrayBuffer = await memeFileInput.arrayBuffer();
   const buffer = new Uint8Array(arrayBuffer);
 
-  const user = (await (await createClient()).auth.getUser()).data.user;
-
-  if (confirmedMeme && user) {
+  if (confirmedMeme) {
     try {
-      const response = await fetch("http://localhost:3000/api/get-username", {
-        method: "GET",
-        headers: {
-          "x-user-email": `${user.email}`,
-        },
-      });
+      const username = await fetchUsername(req);
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-
-      if (!data.username) {
-        throw new Error("Username not found in response");
+      if (!username) {
+        throw new Error("Failed to fetch username");
       }
 
       await new Promise((resolve, reject) => {
@@ -57,7 +42,7 @@ export const uploadAction = async (formData: FormData) => {
             {
               tags: ["sabinus", memeExpression],
               upload_preset: "sabinus_preset",
-              folder: `sabinus-memes/${data.username}`,
+              folder: `sabinus-memes/${username}`,
               image_metadata: true,
               unique_filename: true,
               resource_type: "image",
@@ -76,14 +61,14 @@ export const uploadAction = async (formData: FormData) => {
           .end(buffer);
       });
     } catch (error) {
-      console.error("Failed to fetch username or upload image:", error);
+      console.error("Error occured: ", error as Error);
     }
   }
 
   revalidatePath("/");
 };
 
-export const searchMemesAction = async (): Promise<Meme[]> => {
+export const searchMemesAction = async () => {
   try {
     const { resources } = await cloudinary.search
       .expression("resource_type:image AND folder:sabinus-memes")
@@ -95,33 +80,54 @@ export const searchMemesAction = async (): Promise<Meme[]> => {
     // console.log(resources);
     return resources;
   } catch (error) {
-    throw new Error(`Error occurred: ${error}`);
+    console.error(`Error occurred: ${error}`);
   }
 };
 
 export const toggleFavouritesAction = async (
   publicID: string,
-  isFavourite: boolean = true,
+  isFavourite = true,
+  req?: NextRequest,
 ) => {
   try {
+    const username = await fetchUsername(req);
+
+    if (!username) {
+      throw new Error("Failed to fetch username");
+    }
+
     if (!isFavourite) {
-      await cloudinary.uploader.add_tag("favourite", [publicID]);
+      await cloudinary.uploader.add_tag(
+        ["favourite", `${username}`],
+        [publicID],
+      );
     } else {
-      await cloudinary.uploader.remove_tag("favourite", [publicID]);
+      await cloudinary.uploader.remove_tag(
+        ["favourite", `${username}`],
+        [publicID],
+      );
     }
   } catch (error) {
-    throw new Error(`Error occurred: ${error}`);
+    console.error(`Error occurred: ${error}`);
   }
 
   revalidatePath("/");
   revalidatePath("/favourites");
 };
 
-export const getFavouriteMemesAction = async (): Promise<Meme[]> => {
+export const getFavouriteMemesAction = async (
+  req?: NextRequest,
+)=> {
   try {
+    const username = await fetchUsername(req);
+
+    if (!username) {
+      throw new Error("Failed to fetch username");
+    }
+
     const { resources } = await cloudinary.search
       .expression(
-        "resource_type:image AND folder:sabinus-memes AND tags=favourite",
+        `resource_type:image AND folder:sabinus-memes AND tags=favourite AND tags=${username}`,
       )
       .sort_by("uploaded_at", "desc")
       .with_field("tags")
@@ -131,6 +137,6 @@ export const getFavouriteMemesAction = async (): Promise<Meme[]> => {
     // console.log(resources);
     return resources;
   } catch (error) {
-    throw new Error(`Error occurred: ${error}`);
+    console.error(`Error occurred: ${error}`);
   }
 };

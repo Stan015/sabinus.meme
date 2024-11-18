@@ -9,6 +9,7 @@ export type PreviewSizeOptions = Array<PreviewSizes>;
 export type ExpressionOptionsType = Array<string>;
 
 export type Meme = {
+  username?: string;
   public_id: string;
   secure_url: string;
   width: number;

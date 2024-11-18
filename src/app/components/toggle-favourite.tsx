@@ -1,47 +1,58 @@
 "use client";
 
 import type { Meme } from "@/types";
-import type { FC } from "react";
 
 import { toggleFavouritesAction } from "@/actions";
 import { MdiHeart, MdiHeartOutline } from "@/(icons)/icons";
-import { useState } from "react";
+import { memo, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
+  username: string | null;
   meme: Meme;
   handleRemoveFromFavourite?: (publicID: string) => void;
 };
 
-const ToggleFavourite: FC<Props> = ({ meme, handleRemoveFromFavourite }) => {
-  const isFavourite = meme.tags?.includes("favourite");
-  const [toggleIsFavourite, setToggleIsFavourite] = useState(isFavourite);
+const ToggleFavourite = memo(function ToggleFavourite ({ username, meme, handleRemoveFromFavourite }: Props) {
+  const [isFavourite, setIsFavourite] = useState(false);
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (username) {
+      setIsFavourite(() => ["favourite", username].every(tag => meme.tags?.includes(tag)));
+    } 
+  }, [username, meme])
+
+  const handleToggleFavourite = async () => {      
+    if (username && handleRemoveFromFavourite) {
+      handleRemoveFromFavourite?.(meme.public_id);
+      setTimeout(() => {
+        setIsFavourite((prev) => !prev);
+      }, 1500);
+    } else if (username) {
+      toggleFavouritesAction(meme.public_id, isFavourite);
+      setTimeout(() => {
+        setIsFavourite((prev) => !prev);
+      }, 1500);
+    } else {
+      router.push("/login")
+    }
+  };
 
   return (
     <button
       className="absolute z-10 w-8 h-8 max-md:w-6 max-md:h-6 right-3 top-3"
       type="button"
       title="add to favourites"
-      onClick={() => {
-        if (handleRemoveFromFavourite) {
-          handleRemoveFromFavourite?.(meme.public_id);
-          setTimeout(() => {
-            setToggleIsFavourite((prev) => !prev);
-          }, 1500);
-        } else {
-          toggleFavouritesAction(meme.public_id, isFavourite);
-          setTimeout(() => {
-            setToggleIsFavourite((prev) => !prev);
-          }, 1500);
-        }
-      }}
+      onClick={handleToggleFavourite}
     >
-      {toggleIsFavourite ? (
+      {isFavourite ? (
         <MdiHeart className="text-red-500 w-full h-full hover:text-blue-500 transition-all" />
       ) : (
         <MdiHeartOutline className="w-full h-full text-blue hover:text-red-500 transition-all" />
       )}
     </button>
   );
-};
+});
 
 export default ToggleFavourite;
