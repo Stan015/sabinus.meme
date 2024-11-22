@@ -29,16 +29,22 @@ export async function middleware(request: NextRequest) {
           "x-user-email": userEmail,
         },
       });
-      
+
       response.cookies.set("userChecked", "true", { httpOnly: true });
-      
+
       const username = await fetchUsername();
-      
-      response.cookies.set("username", username as string, { httpOnly: true, sameSite: "strict" });
+
+      response.cookies.set("username", username as string, {
+        httpOnly: true,
+        sameSite: "strict",
+      });
     }
   } else {
     response.cookies.set("userChecked", "false", { httpOnly: true });
-    response.cookies.set("username", '', { httpOnly: true, sameSite: "strict" });
+    response.cookies.set("username", "", {
+      httpOnly: true,
+      sameSite: "strict",
+    });
   }
 
   // if (!user) console.log("no user logged in");

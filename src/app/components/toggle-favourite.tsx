@@ -13,17 +13,21 @@ type Props = {
   handleRemoveFromFavourite?: (publicID: string) => void;
 };
 
-const ToggleFavourite = memo(function ToggleFavourite ({ username, meme, handleRemoveFromFavourite }: Props) {
+const ToggleFavourite = memo(function ToggleFavourite({
+  username,
+  meme,
+  handleRemoveFromFavourite,
+}: Props) {
   const [isFavourite, setIsFavourite] = useState(false);
   const router = useRouter();
-  
+
   useEffect(() => {
     if (username) {
       setIsFavourite(() => meme.tags.includes(`favourite-${username}`));
-    } 
-  }, [username, meme])
+    }
+  }, [username, meme]);
 
-  const handleToggleFavourite = async () => {      
+  const handleToggleFavourite = async () => {
     if (username && handleRemoveFromFavourite) {
       handleRemoveFromFavourite?.(meme.public_id);
       setTimeout(() => {
@@ -35,7 +39,7 @@ const ToggleFavourite = memo(function ToggleFavourite ({ username, meme, handleR
         setIsFavourite((prev) => !prev);
       }, 1500);
     } else {
-      router.push("/login")
+      router.push("/login");
     }
   };
 

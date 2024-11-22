@@ -12,7 +12,7 @@ export default function Favourites() {
   const [memes, setMemes] = useState<Meme[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
-const [justRemovedFromFav, setJustRemovedFromFav] = useState<{
+  const [justRemovedFromFav, setJustRemovedFromFav] = useState<{
     memeID: string;
     justRemoved: boolean;
   }>({
@@ -50,14 +50,14 @@ const [justRemovedFromFav, setJustRemovedFromFav] = useState<{
   }, [memes, justRemovedFromFav]);
 
   const fetchUsername = useCallback(async () => {
-    const userEmail = (await createClient().auth.getUser()).data.user?.email
-    const response = await fetch('/api/get-username', {
+    const userEmail = (await createClient().auth.getUser()).data.user?.email;
+    const response = await fetch("/api/get-username", {
       headers: {
         "x-user-email": `${userEmail}`,
-      }
+      },
     });
     const data = await response.json();
-    
+
     return data.username;
   }, []);
 

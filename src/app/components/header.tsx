@@ -11,14 +11,14 @@ import {
 import ToggleTheme from "@/components/toggle-theme";
 import { useState } from "react";
 import cn from "@/utils/cn";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const { isLoggedIn } = useAuthContext();
   const [menuExpanded, setMenuExpanded] = useState(false);
 
   const currentPath = usePathname();
-    
+
   const handleToggleMenu = () =>
     setMenuExpanded((menuExpanded) => !menuExpanded);
 
@@ -76,8 +76,8 @@ export default function Header() {
             className={cn(
               "max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all",
               {
-                "border-b-blue": currentPath === "/"
-              }
+                "border-b-blue": currentPath === "/",
+              },
             )}
           >
             Home
@@ -88,9 +88,10 @@ export default function Header() {
             className={cn(
               "max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all",
               {
-                "border-b-blue": currentPath === "/upload"
-              }
-            )}          >
+                "border-b-blue": currentPath === "/upload",
+              },
+            )}
+          >
             Upload
           </Link>
           <Link
@@ -99,9 +100,9 @@ export default function Header() {
             className={cn(
               "max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all",
               {
-                "border-b-blue": currentPath === "/favourites"
-              }
-            )}          
+                "border-b-blue": currentPath === "/favourites",
+              },
+            )}
           >
             Favourites
           </Link>
@@ -111,9 +112,10 @@ export default function Header() {
             className={cn(
               "max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all",
               {
-                "border-b-blue": currentPath === "/contact"
-              }
-            )}          >
+                "border-b-blue": currentPath === "/contact",
+              },
+            )}
+          >
             Contact
           </Link>
         </nav>
@@ -136,8 +138,8 @@ export default function Header() {
                 className={cn(
                   "max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all",
                   {
-                    "border-b-blue": currentPath === "/login"
-                  }
+                    "border-b-blue": currentPath === "/login",
+                  },
                 )}
               >
                 Login
@@ -148,9 +150,10 @@ export default function Header() {
                 className={cn(
                   "max-md:text-center border-b-2 border-b-transparent max-md:border-b-white dark:max-md:border-b-[#344054] hover:!border-b-blue px-2 rounded-full transition-all",
                   {
-                    "border-b-blue": currentPath === "/sign-up"
-                  }
-                )}              >
+                    "border-b-blue": currentPath === "/sign-up",
+                  },
+                )}
+              >
                 Sign Up
               </Link>
             </nav>

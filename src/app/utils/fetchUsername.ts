@@ -1,7 +1,9 @@
 import type { NextRequest } from "next/server";
 import { createClient } from "./supabase/server";
 
-export const fetchUsername = async (req?: NextRequest): Promise<string | null> => {
+export const fetchUsername = async (
+  req?: NextRequest,
+): Promise<string | null> => {
   try {
     const user = (await (await createClient()).auth.getUser()).data.user;
 
