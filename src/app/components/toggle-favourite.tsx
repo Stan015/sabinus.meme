@@ -47,11 +47,11 @@ const ToggleFavourite = memo(function ToggleFavourite({
     <button
       className="absolute z-10 w-8 h-8 max-md:w-6 max-md:h-6 right-3 top-3"
       type="button"
-      title="add to favourites"
+      aria-label="toggle favourites"
       onClick={handleToggleFavourite}
     >
       {isFavourite ? (
-        <MdiHeart className="text-red-500 w-full h-full hover:text-blue-500 transition-all" />
+        <MdiHeart className="text-red-500 w-full h-full hover:text-blue transition-all" />
       ) : (
         <MdiHeartOutline className="w-full h-full text-blue hover:text-red-500 transition-all" />
       )}

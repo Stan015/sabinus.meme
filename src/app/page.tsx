@@ -7,6 +7,8 @@ import ToggleFavourite from "./components/toggle-favourite";
 import cn from "./utils/cn";
 import { getUsernameFromCookie, searchMemesAction } from "./actions";
 import { useEffect, useState } from "react";
+import DownloadMeme from "./components/download-meme";
+import ShareMeme from "./components/share-meme";
 
 type Meme = {
   public_id: string;
@@ -36,7 +38,7 @@ function Home() {
     const handler = setTimeout(() => {
       setTag(inputValue);
     }, 500);
-    
+
     return () => clearTimeout(handler);
   }, [inputValue]);
 
@@ -47,7 +49,7 @@ function Home() {
 
   const fetchMemes = async (tag?: string, cursor?: string) => {
     setLoading(true);
-    
+
     try {
       const { resources, nextCursor } = await searchMemesAction(tag, cursor);
       if (resources.length) {
@@ -87,12 +89,14 @@ function Home() {
               )}
               key={meme.public_id}
             >
+              <DownloadMeme newClassName="absolute text-blue left-3 top-3 hover:text-red-500 transition-all" />
               <ToggleFavourite meme={meme} username={username} />
               <MemeImage
                 secure_url={meme.secure_url}
                 width={meme.width}
                 height={meme.height}
               />
+              <ShareMeme newClassName="absolute bottom-3 right-3 text-blue hover:text-red-500 transition-all" />
             </div>
           ))}
         </div>
@@ -100,7 +104,7 @@ function Home() {
           className="w-[15rem] px-6 py-4 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl mt-10"
           type="button"
           onClick={() => {
-            if (nextCursor) fetchMemes(tag, nextCursor as string)
+            if (nextCursor) fetchMemes(tag, nextCursor as string);
           }}
           disabled={loading}
         >
