@@ -3,8 +3,6 @@
 import type { PreviewSizeOptions, PreviewSizes } from "@/types";
 import type { ChangeEvent } from "react";
 
-import Image from "next/image";
-// import { CldUploadWidget } from "next-cloudinary";
 import { useEffect, useState } from "react";
 import { uploadAction } from "@/actions";
 import SizeOptions from "@/components/size-options";
@@ -118,23 +116,6 @@ export default function Upload() {
           action={uploadAction}
         >
           <div className="w-max h-max p-6 max-sm:p-0">
-            {/* <CldUploadWidget
-              uploadPreset="sabinus_preset"
-              options={{ sources: ["local"] }}
-              signatureEndpoint={"/api/sign-image-upload"}
-            >
-              {({ open }) => {
-                return (
-                  <button
-                    className="w-max px-4 py-2 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
-                    type="button"
-                    onClick={() => open()}
-                  >
-                    Upload
-                  </button>
-                );
-              }}
-            </CldUploadWidget> */}
             <input
               className="w-[20rem] h-16 bg-gray-100 dark:text-clr-light rounded-xl text-center p-4 border border-white dark:border-blue hover:border-blue-deep transition-all file:border-blue file:rounded-lg dark:file:bg-dark cursor-pointer file:cursor-pointer"
               type="file"
@@ -150,22 +131,6 @@ export default function Upload() {
           </div>
 
           <div className="w-max max-sm:w-[20rem] max-sm:p-0 max-md:items-center h-max p-6 flex flex-col gap-6">
-            {/* <div className="flex flex-col gap-1">
-              <label className="font-bold text-md" htmlFor="memeDescription">
-                Description
-              </label>
-              <textarea
-                className="w-full h-[5.4rem] bg-gray-100 rounded-xl p-4 border transition-all border-white text-md ring-offset-blue-400 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                name="memeDescription"
-                id="memeDescription"
-                placeholder="What is sabinus up to in the picture?"
-                rows={2}
-                required
-                minLength={60}
-                maxLength={100}
-              ></textarea>
-            </div> */}
-
             <ExpressionOptions
               expressionOptions={expressionOptions}
               expressions={expressions}
