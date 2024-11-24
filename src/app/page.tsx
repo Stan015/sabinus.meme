@@ -89,14 +89,20 @@ function Home() {
               )}
               key={meme.public_id}
             >
-              <DownloadMeme newClassName="absolute text-blue left-3 top-3 hover:text-red-500 transition-all" />
+              <DownloadMeme
+                fileUrl={meme.secure_url}
+                newClassName="absolute text-blue left-3 top-3 hover:text-red-500 transition-all"
+              />
               <ToggleFavourite meme={meme} username={username} />
               <MemeImage
                 secure_url={meme.secure_url}
                 width={meme.width}
                 height={meme.height}
               />
-              <ShareMeme newClassName="absolute bottom-3 right-3 text-blue hover:text-red-500 transition-all" />
+              <ShareMeme
+                imageId={meme.public_id}
+                newClassName="absolute bottom-3 right-3 text-blue hover:text-red-500 transition-all"
+              />
             </div>
           ))}
         </div>

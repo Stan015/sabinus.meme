@@ -155,6 +155,21 @@ export const getFavouriteMemesAction = async (req?: NextRequest) => {
   }
 };
 
+export const getSingleMemeAction = async (memeId: string) => {
+  try {
+    const { resources } = await cloudinary.search
+      .expression(`public_id=${memeId}`)
+      .with_field("tags")
+      .execute();
+
+    // console.log(resources);
+    return resources;
+  } catch (error) {
+    console.error("Error fetching meme:", (error as Error).message);
+    throw error;
+  }
+};
+
 export const getUsernameFromCookie = async () => {
   const coockiesStore = await cookies();
   return coockiesStore.get("username")?.value || null;

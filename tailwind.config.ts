@@ -29,7 +29,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+    require("@tailwindcss/typography"),
+  ],
   darkMode: "class",
 };
 export default config;

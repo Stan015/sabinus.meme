@@ -6,6 +6,8 @@ import { toggleFavouritesAction } from "@/actions";
 import { MdiHeart, MdiHeartOutline } from "@/(icons)/icons";
 import { memo, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Props = {
   username: string | null;
@@ -28,34 +30,48 @@ const ToggleFavourite = memo(function ToggleFavourite({
   }, [username, meme]);
 
   const handleToggleFavourite = async () => {
-    if (username && handleRemoveFromFavourite) {
-      handleRemoveFromFavourite?.(meme.public_id);
-      setTimeout(() => {
-        setIsFavourite((prev) => !prev);
-      }, 1500);
-    } else if (username) {
-      toggleFavouritesAction(meme.public_id, isFavourite);
-      setTimeout(() => {
-        setIsFavourite((prev) => !prev);
-      }, 1500);
-    } else {
+    if (!username) {
       router.push("/login");
+      toast.error("You need to log in to add favourites!");
+      return;
+    }
+
+    try {
+      if (handleRemoveFromFavourite) {
+        handleRemoveFromFavourite?.(meme.public_id);
+      } else {
+        await toggleFavouritesAction(meme.public_id, isFavourite);
+      }
+      setTimeout(() => {
+        setIsFavourite((prev) => !prev);
+        toast.success(
+          isFavourite
+            ? "Removed from favourites successfully!"
+            : "Added to favourites successfully!"
+        );
+      }, 1500);
+    } catch (error) {
+      console.error("Failed to toggle favourite:", error);
+      toast.error("An error occurred. Please try again.");
     }
   };
 
   return (
-    <button
-      className="absolute z-10 w-8 h-8 max-md:w-6 max-md:h-6 right-3 top-3"
-      type="button"
-      aria-label="toggle favourites"
-      onClick={handleToggleFavourite}
-    >
-      {isFavourite ? (
-        <MdiHeart className="text-red-500 w-full h-full hover:text-blue transition-all" />
-      ) : (
-        <MdiHeartOutline className="w-full h-full text-blue hover:text-red-500 transition-all" />
-      )}
-    </button>
+    <>
+      <button
+        className="absolute z-10 w-8 h-8 max-md:w-6 max-md:h-6 right-3 top-3"
+        type="button"
+        aria-label="toggle favourites"
+        onClick={handleToggleFavourite}
+      >
+        {isFavourite ? (
+          <MdiHeart className="text-red-500 w-full h-full hover:text-blue transition-all" />
+        ) : (
+          <MdiHeartOutline className="w-full h-full text-blue hover:text-red-500 transition-all" />
+        )}
+      </button>
+      <ToastContainer />
+    </>
   );
 });
 
