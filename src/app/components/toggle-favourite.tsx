@@ -47,7 +47,7 @@ const ToggleFavourite = memo(function ToggleFavourite({
         toast.success(
           isFavourite
             ? "Removed from favourites successfully!"
-            : "Added to favourites successfully!"
+            : "Added to favourites successfully!",
         );
       }, 1500);
     } catch (error) {

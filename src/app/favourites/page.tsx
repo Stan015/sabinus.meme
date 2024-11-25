@@ -1,12 +1,13 @@
 "use client";
 
+import { Suspense, useCallback, useEffect, useState, lazy } from "react";
 import { getFavouriteMemesAction, toggleFavouritesAction } from "@/actions";
 import MemeImage from "@/components/meme-image";
 import ToggleFavourite from "@/components/toggle-favourite";
 import type { Meme } from "@/types";
 import cn from "@/utils/cn";
 import { createClient } from "@/utils/supabase/client";
-import { Suspense, useCallback, useEffect, useState } from "react";
+import LoadingImage from "@/components/loadImageSkeleton";
 
 export default function Favourites() {
   const [memes, setMemes] = useState<Meme[]>([]);
@@ -81,8 +82,7 @@ export default function Favourites() {
         </div>
       ) : (
         <div className="w-full columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5 [&>div:not(:first-child)]:mt-4">
-          <Suspense fallback={<p>Loading...</p>}>
-            {memes.map((meme: Meme) => (
+            {!loaded ? (<LoadingImage />) : (memes.map((meme: Meme) => (
               <div
                 className={cn(
                   "h-max overflow-hidden relative",
@@ -101,8 +101,7 @@ export default function Favourites() {
                   height={meme.height}
                 />
               </div>
-            ))}
-          </Suspense>
+            )))}
         </div>
       )}
     </main>

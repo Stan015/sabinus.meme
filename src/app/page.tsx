@@ -9,6 +9,7 @@ import { getUsernameFromCookie, searchMemesAction } from "./actions";
 import { useEffect, useState } from "react";
 import DownloadMeme from "./components/download-meme";
 import ShareMeme from "./components/share-meme";
+import LoadingImage from "./components/loadImageSkeleton";
 
 type Meme = {
   public_id: string;
@@ -81,30 +82,34 @@ function Home() {
           />
         </section>
         <div className="w-full columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5 [&>div:not(:first-child)]:mt-4">
-          {memes.map((meme: Meme) => (
-            <div
-              className={cn(
-                "h-max overflow-hidden relative",
-                `w-[${meme.width / 1.4}px]`,
-              )}
-              key={meme.public_id}
-            >
-              <DownloadMeme
-                fileUrl={meme.secure_url}
-                newClassName="absolute text-blue left-3 top-3 hover:text-red-500 transition-all"
-              />
-              <ToggleFavourite meme={meme} username={username} />
-              <MemeImage
-                secure_url={meme.secure_url}
-                width={meme.width}
-                height={meme.height}
-              />
-              <ShareMeme
-                imageId={meme.public_id}
-                newClassName="absolute bottom-3 right-3 text-blue hover:text-red-500 transition-all"
-              />
-            </div>
-          ))}
+          {loading && !nextCursor ? (
+            <LoadingImage />
+          ) : (
+            memes.map((meme: Meme) => (
+              <div
+                className={cn(
+                  "h-max overflow-hidden relative",
+                  `w-[${meme.width / 1.4}px]`,
+                )}
+                key={meme.public_id}
+              >
+                <DownloadMeme
+                  fileUrl={meme.secure_url}
+                  newClassName="absolute text-blue left-3 top-3 hover:text-red-500 transition-all"
+                />
+                <ToggleFavourite meme={meme} username={username} />
+                <MemeImage
+                  secure_url={meme.secure_url}
+                  width={meme.width}
+                  height={meme.height}
+                />
+                <ShareMeme
+                  imageId={meme.public_id}
+                  newClassName="absolute bottom-3 right-3 text-blue hover:text-red-500 transition-all"
+                />
+              </div>
+            ))
+          )}
         </div>
         <button
           className="w-[15rem] px-6 py-4 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl mt-10"
