@@ -2,8 +2,7 @@
 
 import { PhShareFatBold } from "@/(icons)/icons";
 import cn from "@/utils/cn";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function ShareMeme({
   imageId,
@@ -33,7 +32,6 @@ export default function ShareMeme({
       >
         <PhShareFatBold className="w-full h-full" />
       </button>
-      <ToastContainer />
     </>
   );
 }

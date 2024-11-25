@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import {
   EvaCloudDownloadOutline,
   LineMdDownloadingLoop,
@@ -56,7 +55,7 @@ export default function DownloadMeme({
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `sabinus_meme_${Math.floor(Math.random() * 1000)}.png`;
+      link.download = `sabinus_meme_${new Date().toISOString()}.png`;
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -68,7 +67,7 @@ export default function DownloadMeme({
       });
     } catch (error) {
       toast.update(toastId, {
-        render: "Error downloading the file",
+        render: "Error downloading the file. Please try again.",
         type: "error",
         autoClose: 3000,
       });
@@ -79,21 +78,22 @@ export default function DownloadMeme({
   };
 
   return (
-    <>
-      <button
-        type="button"
-        aria-label="download meme button"
-        className={cn("w-8 h-8 max-md:w-6 max-md:h-6", newClassName)}
-        onClick={handleDownload}
-        disabled={isDownloading}
-      >
-        {isDownloading ? (
-          <LineMdDownloadingLoop className="w-full h-full" />
-        ) : (
-          <EvaCloudDownloadOutline className="w-full h-full" />
-        )}
-      </button>
-      <ToastContainer />
-    </>
+    <button
+      type="button"
+      aria-label="Download meme button"
+      className={cn(
+        "w-8 h-8 max-md:w-6 max-md:h-6 flex justify-center items-center",
+        isDownloading ? "cursor-not-allowed opacity-50" : "",
+        newClassName,
+      )}
+      onClick={handleDownload}
+      disabled={isDownloading}
+    >
+      {isDownloading ? (
+        <LineMdDownloadingLoop className="w-full h-full" />
+      ) : (
+        <EvaCloudDownloadOutline className="w-full h-full" />
+      )}
+    </button>
   );
 }

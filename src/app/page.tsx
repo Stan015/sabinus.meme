@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import DownloadMeme from "./components/download-meme";
 import ShareMeme from "./components/share-meme";
 import LoadingImage from "./components/loadImageSkeleton";
+import { EosIconsThreeDotsLoading } from "./(icons)/icons";
 
 type Meme = {
   public_id: string;
@@ -119,7 +120,14 @@ function Home() {
           }}
           disabled={loading}
         >
-          {loading ? "loading..." : "Load more memes"}
+          {loading ? (
+            <span className="flex gap-1 w-full items-center justify-center">
+              {" "}
+              loading <EosIconsThreeDotsLoading className="w-[2rem] h-[2rem]" />{" "}
+            </span>
+          ) : (
+            "Load more memes"
+          )}
         </button>
       </main>
     </>

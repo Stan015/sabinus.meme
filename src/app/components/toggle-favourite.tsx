@@ -6,8 +6,7 @@ import { toggleFavouritesAction } from "@/actions";
 import { MdiHeart, MdiHeartOutline } from "@/(icons)/icons";
 import { memo, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 type Props = {
   username: string | null;
@@ -40,16 +39,14 @@ const ToggleFavourite = memo(function ToggleFavourite({
       if (handleRemoveFromFavourite) {
         handleRemoveFromFavourite?.(meme.public_id);
       } else {
-        await toggleFavouritesAction(meme.public_id, isFavourite);
+        toggleFavouritesAction(meme.public_id, isFavourite);
       }
-      setTimeout(() => {
-        setIsFavourite((prev) => !prev);
-        toast.success(
-          isFavourite
-            ? "Removed from favourites successfully!"
-            : "Added to favourites successfully!",
-        );
-      }, 1500);
+      setIsFavourite((prev) => !prev);
+      toast.success(
+        isFavourite
+          ? "Removed from favourites successfully!"
+          : "Added to favourites successfully!",
+      );
     } catch (error) {
       console.error("Failed to toggle favourite:", error);
       toast.error("An error occurred. Please try again.");
@@ -70,7 +67,6 @@ const ToggleFavourite = memo(function ToggleFavourite({
           <MdiHeartOutline className="w-full h-full text-blue hover:text-red-500 transition-all" />
         )}
       </button>
-      <ToastContainer />
     </>
   );
 });
