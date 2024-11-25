@@ -10,11 +10,13 @@ import { fetchUsername } from "@/utils/fetchUsername";
 import type { Metadata } from "next";
 import Link from "next/link";
 
+type PageParams = {
+  params: { id: string };
+};
+
 export const generateMetadata = async ({
   params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> => {
+}: PageParams): Promise<Metadata> => {
   const memeId = params.id;
 
   const meme = {
@@ -42,11 +44,7 @@ export const generateMetadata = async ({
   };
 };
 
-export default async function MemeDetails({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function MemeDetails({ params }: PageParams) {
   const username = await fetchUsername();
   const memeId = params.id;
 
