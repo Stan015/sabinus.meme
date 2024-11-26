@@ -14,7 +14,11 @@ cloudinary.config({
   secure: true,
 });
 
-export const uploadAction = async (formData: FormData, req?: NextRequest) => {
+export const uploadAction = async (
+  formData: FormData,
+  memeType: string,
+  req?: NextRequest,
+) => {
   const memeFileInput = (formData.get("memeFile") as File) || null;
   // const memeDescription =
   //   formData.get("memeDescription")?.toString().trim() || "";
@@ -37,13 +41,21 @@ export const uploadAction = async (formData: FormData, req?: NextRequest) => {
         throw new Error("Failed to fetch username");
       }
 
+      let folder: string;
+
+      if (memeType === "sabinus") {
+        folder = "sabinus-memes";
+      } else {
+        folder = `sabinus-memes/${username}`;
+      }
+
       await new Promise((resolve, reject) => {
         cloudinary.uploader
           .upload_stream(
             {
-              tags: ["sabinus", memeExpression],
+              tags: [username, memeExpression],
               upload_preset: "sabinus_preset",
-              folder: `sabinus-memes/${username}`,
+              folder: folder,
               image_metadata: true,
               unique_filename: true,
               resource_type: "image",

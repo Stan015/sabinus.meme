@@ -11,9 +11,10 @@ import Image from "next/image";
 type Props = {
   image: string | ArrayBuffer | null | undefined;
   previewSize: PreviewSizes;
+  typeOfMeme: string;
 };
 
-const PreviewUpload: FC<Props> = ({ image, previewSize }) => {
+const PreviewUpload: FC<Props> = ({ image, previewSize, typeOfMeme }) => {
   return (
     <div className="w-full h-max mt-6">
       <h3 className="font-bold text-md">Preview</h3>
@@ -33,10 +34,18 @@ const PreviewUpload: FC<Props> = ({ image, previewSize }) => {
             className="w-full h-full"
             style={{ aspectRatio: previewSize["aspect-ratio"] }}
           />
-        ) : (
+        ) : typeOfMeme === "sabinus" ? (
           <Image
             className="w-full h-full"
             src={"/media/FB_IMG_1643537249999.JPG"}
+            alt="an image of investor sabinus the comedian"
+            width={previewSize.width}
+            height={previewSize.height}
+          />
+        ) : (
+          <Image
+            className="w-full h-full"
+            src={"/media/chill-guy-meme.jpg"}
             alt="an image of investor sabinus the comedian"
             width={previewSize.width}
             height={previewSize.height}
