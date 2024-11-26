@@ -11,11 +11,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 type PageParams = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
-export const generateMetadata = ({ params }: PageParams): Metadata => {
-  const memeId = params.id;
+export const generateMetadata = async ({
+  params,
+}: PageParams): Promise<Metadata> => {
+  const memeId = (await params).id;
 
   const meme = {
     id: memeId,
