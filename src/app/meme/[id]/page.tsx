@@ -46,7 +46,7 @@ export const generateMetadata = async ({
 
 export default async function MemeDetails({ params }: PageParams) {
   const username = await fetchUsername();
-  const memeId = params.id;
+  const memeId = (await params).id;
 
   const displayedMemeData = async () => {
     try {
