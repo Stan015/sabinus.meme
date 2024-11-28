@@ -118,6 +118,41 @@ export const searchMemesAction = async (
   }
 };
 
+export const fetchUserUploadsAction = async (
+  username: string,
+  typeOfUpload: string,
+  cursor?: string,
+): Promise<SearchMemesResult> => {
+  try {
+    let expression = "resource_type:image";
+
+    if (typeOfUpload === "sabinus") {
+      expression += ` AND folder:sabinus-memes AND tags:${username}`;
+    } else {
+      expression += ` AND folder:sabinus-memes/${username}`;
+    }
+
+    const search = cloudinary.search
+      .expression(expression)
+      .sort_by("uploaded_at", "desc")
+      .with_field("tags")
+      .max_results(20);
+
+    if (cursor) {
+      search.next_cursor(cursor);
+    }
+
+    const { resources, next_cursor } = await search.execute();
+    console.log("Cloudinary response:", { resources, next_cursor });
+
+    return { resources, nextCursor: next_cursor };
+  } catch (error) {
+    console.error("Error occurred:", error);
+    console.error("Error details:", JSON.stringify(error, null, 2));
+    return { resources: [], nextCursor: null };
+  }
+};
+
 export const toggleFavouritesAction = async (
   publicID: string,
   isFavourite = true,
