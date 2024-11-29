@@ -50,9 +50,11 @@ export async function middleware(request: NextRequest) {
   // if (!user) console.log("no user logged in");
 
   const currentPath = request.nextUrl.pathname;
-  const protectedPath = "/favourites";
+  const protectedPath = ["/favourites", "/dashboard"];
 
-  if (!user && currentPath === protectedPath) {
+  console.log(currentPath);
+
+  if (!user && protectedPath.includes(currentPath)) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
