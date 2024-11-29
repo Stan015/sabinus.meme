@@ -1,38 +1,31 @@
+import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { type NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get("code");
+export async function GET(request: Request) {
+  const { searchParams, origin } = new URL(request.url);
+  const code = searchParams.get("code");
 
-  if (!code) {
-    console.error("Authorization code is missing.");
-    return NextResponse.redirect(
-      `${requestUrl.origin}/error?message=Missing authorization code`,
-    );
-  }
+  const next = searchParams.get("next") ?? "/";
 
-  try {
+  if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (!error) {
+      const forwardedHost = request.headers.get("x-forwarded-host");
 
-    if (error) {
-      console.error("Failed to exchange code for session:", error.message);
-      return NextResponse.redirect(
-        `${requestUrl.origin}/error?message=${encodeURIComponent(error.message)}`,
-      );
+      const isLocalEnv = process.env.NODE_ENV === "development";
+
+      if (isLocalEnv) {
+        return NextResponse.redirect(`${origin}${next}`);
+      }
+
+      if (forwardedHost) {
+        return NextResponse.redirect(`https://${forwardedHost}${next}`);
+      }
+
+      return NextResponse.redirect(`${origin}${next}`);
     }
-
-    console.log("from API", requestUrl.origin);
-
-    return NextResponse.redirect(requestUrl.origin);
-  } catch (err) {
-    console.error(
-      "Unexpected error during code exchange:",
-      (err as Error).message,
-    );
-    return NextResponse.redirect(
-      `${requestUrl.origin}/error?message=Unexpected error occurred`,
-    );
   }
+
+  return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 }
