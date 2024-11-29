@@ -108,7 +108,7 @@ export const searchMemesAction = async (
     }
 
     const { resources, next_cursor } = await search.execute();
-    console.log("Cloudinary response:", { resources, next_cursor });
+    // console.log("Cloudinary response:", { resources, next_cursor });
 
     return { resources, nextCursor: next_cursor };
   } catch (error) {
@@ -143,7 +143,7 @@ export const fetchUserUploadsAction = async (
     }
 
     const { resources, next_cursor } = await search.execute();
-    console.log("Cloudinary response:", { resources, next_cursor });
+    // console.log("Cloudinary response:", { resources, next_cursor });
 
     return { resources, nextCursor: next_cursor };
   } catch (error) {

@@ -1,5 +1,8 @@
+"use server";
+
 import type { NextRequest } from "next/server";
 import { createClient } from "./supabase/server";
+import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
 
 export const fetchUsername = async (
   req?: NextRequest,
@@ -7,13 +10,11 @@ export const fetchUsername = async (
   try {
     const user = (await (await createClient()).auth.getUser()).data.user;
 
-    const baseUrl =
-      req?.nextUrl.origin ||
-      (typeof window !== "undefined"
-        ? window.location.origin
-        : "http://localhost:3000");
+    const origin = ((await headers()) as unknown as UnsafeUnwrappedHeaders).get(
+      "origin",
+    );
 
-    const response = await fetch(`${baseUrl}/api/get-username`, {
+    const response = await fetch(`${origin}/api/get-username`, {
       method: "GET",
       headers: {
         "x-user-email": `${user?.email}`,
