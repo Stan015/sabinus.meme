@@ -71,7 +71,7 @@ export async function signUp(formData: FormData) {
 
 export const handleGoogleSignUp = async (provider: Provider) => {
   const supabase = await createClient();
-  const origin = (headers() as unknown as UnsafeUnwrappedHeaders).get("origin");
+  const origin = (await headers() as unknown as UnsafeUnwrappedHeaders).get("origin");
 
   console.log(origin);
   const { data, error } = await supabase.auth.signInWithOAuth({
