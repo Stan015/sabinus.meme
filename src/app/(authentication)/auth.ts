@@ -71,7 +71,7 @@ export async function signUp(formData: FormData) {
 
 export const handleGoogleSignUp = async (provider: Provider) => {
   const supabase = await createClient();
-  const origin =  (await headers()).get("origin");
+  const origin =  "https://sabinus.meme";
 
   console.log(origin);
   const { data, error } = await supabase.auth.signInWithOAuth({
