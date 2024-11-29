@@ -38,6 +38,7 @@ export default function Header() {
             href={"/"}
             aria-label="logo"
             onClick={() => setMenuExpanded(false)}
+            className={cn("w-max", { "lg:mr-[6.7rem]": !isLoggedIn })}
           >
             <Image
               className="w-full h-full"
