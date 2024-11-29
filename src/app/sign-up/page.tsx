@@ -86,13 +86,13 @@ const Signup = () => {
           </div>
           <Button
             type="submit"
-            className="flex items-center justify-center w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 "
+            className="flex gap-2 items-center justify-center mt-4 bg-blue text-white hover:bg-blue-deep w-full"
           >
             Sign Up
           </Button>
           <Button
             onClick={async () => await handleGoogleSignUp("google")}
-            className="flex gap-4 items-center justify-center mt-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
+            className="flex gap-2 items-center justify-center mt-4 bg-blue text-white hover:bg-blue-deep w-full"
           >
             <Image
               src="/icons8-google-48.png"

@@ -4,7 +4,6 @@ import type { FormData } from "@/types";
 import { useState } from "react";
 import { handleGoogleSignUp, signIn } from "@/(authentication)/auth";
 import LoginForm from "../components/login-form";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/button";
 import Image from "next/image";
 
@@ -36,7 +35,7 @@ export default function Login() {
         />
         <Button
           onClick={async () => await handleGoogleSignUp("google")}
-          className="flex gap-2 items-center justify-center mt-4 bg-blue-500 text-white rounded hover:bg-blue-600 w-full"
+          className="flex gap-2 items-center justify-center mt-4 bg-blue text-white hover:bg-blue-deep w-full"
         >
           <Image
             src="/icons8-google-48.png"
