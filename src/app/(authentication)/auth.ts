@@ -73,6 +73,7 @@ export const handleGoogleSignUp = async (provider: Provider) => {
   const supabase = await createClient();
   const origin = (headers() as unknown as UnsafeUnwrappedHeaders).get("origin");
 
+  console.log(origin);
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
     options: {
@@ -82,13 +83,15 @@ export const handleGoogleSignUp = async (provider: Provider) => {
 
   if (error) {
     console.error("Error signing up with Google:", error.message);
-    redirect("/error");
+    return redirect(`/error?message=${encodeURIComponent(error.message)}`);
   }
 
-  // console.log("Google sign-up initiated", data);
-
-  revalidatePath("/", "layout");
-  redirect(`${data.url}`);
+  if (data?.url) {
+    redirect(data.url);
+  } else {
+    console.error("Error: No URL returned from Google sign-up.");
+    redirect("/error");
+  }
 };
 
 export const signOut = async () => {
