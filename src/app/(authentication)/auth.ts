@@ -5,7 +5,7 @@ import type { Provider } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
+import { headers } from "next/headers";
 
 export async function signIn(formData: FormData) {
   const supabase = await createClient();
@@ -71,7 +71,7 @@ export async function signUp(formData: FormData) {
 
 export const handleGoogleSignUp = async (provider: Provider) => {
   const supabase = await createClient();
-  const origin = (await headers() as unknown as UnsafeUnwrappedHeaders).get("origin");
+  const origin =  (await headers()).get("origin");
 
   console.log(origin);
   const { data, error } = await supabase.auth.signInWithOAuth({
