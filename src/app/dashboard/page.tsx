@@ -45,11 +45,19 @@ const Dashboard = () => {
     fetchMemes(username as string, typeOfMeme);
   }, [username, typeOfMeme]);
 
-  const fetchMemes = async (username: string, typeOfMeme: string, cursor?: string) => {
+  const fetchMemes = async (
+    username: string,
+    typeOfMeme: string,
+    cursor?: string,
+  ) => {
     setLoading(true);
 
     try {
-      const { resources, nextCursor } = await fetchUserUploadsAction(username, typeOfMeme, cursor);
+      const { resources, nextCursor } = await fetchUserUploadsAction(
+        username,
+        typeOfMeme,
+        cursor,
+      );
       if (resources.length) {
         setMemes((prev) => [...prev, ...resources]);
         setNextCursor(nextCursor);
@@ -62,7 +70,7 @@ const Dashboard = () => {
       setLoading(false);
     }
   };
-  
+
   const handleSignOut = async () => {
     const response = await signOut();
 
@@ -162,7 +170,8 @@ const Dashboard = () => {
         className="w-[15rem] px-6 py-4 bg-blue hover:bg-blue-deep self-center transition-all text-white text-[1.2rem] font-bold rounded-xl"
         type="button"
         onClick={() => {
-          if (nextCursor) fetchMemes(username as string, typeOfMeme, nextCursor as string);
+          if (nextCursor)
+            fetchMemes(username as string, typeOfMeme, nextCursor as string);
         }}
         disabled={loading}
       >
@@ -175,7 +184,11 @@ const Dashboard = () => {
         )}
       </Button>
       <div className="flex w-full gap-2 justify-between items-center mt-7">
-        <Button type="button" onClick={handleSignOut} className="w-max text-base  whitespace-nowrap">
+        <Button
+          type="button"
+          onClick={handleSignOut}
+          className="w-max text-base  whitespace-nowrap"
+        >
           Sign Out
         </Button>
         <p className="text-base max-sm:text-[0.8rem]">Username: {username}</p>

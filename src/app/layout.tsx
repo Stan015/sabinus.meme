@@ -7,7 +7,7 @@ import { ThemeProvider } from "next-themes";
 import cn from "./utils/cn";
 import Footer from "./components/footer";
 import ClientProviders from "./components/client-providers";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
