@@ -4,6 +4,7 @@ import { signOut } from "@/(authentication)/auth";
 import { EosIconsThreeDotsLoading } from "@/(icons)/icons";
 import { getUsernameFromCookie, fetchUserUploadsAction } from "@/actions";
 import { Button } from "@/components/button";
+import DeleteMeme from "@/components/delete-meme";
 import DownloadMeme from "@/components/download-meme";
 import LoadingImage from "@/components/loadImageSkeleton";
 import MemeImage from "@/components/meme-image";
@@ -22,8 +23,6 @@ const Dashboard = () => {
   const [memes, setMemes] = useState<Meme[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [inputValue, setInputValue] = useState<string>("");
-  const [tag, setTag] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -31,14 +30,6 @@ const Dashboard = () => {
       setUsername(result);
     })();
   }, []);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setTag(inputValue);
-    }, 500);
-
-    return () => clearTimeout(handler);
-  }, [inputValue]);
 
   useEffect(() => {
     setMemes([]);
@@ -136,7 +127,7 @@ const Dashboard = () => {
           Other Uploads
         </button>
       </div>
-      <section className="w-full columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5 [&>div:not(:first-child)]:mt-4">
+      <section className="w-full min-h-[50svh] columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5 [&>div:not(:first-child)]:mt-4">
         {loading && !nextCursor ? (
           <LoadingImage />
         ) : (
@@ -157,6 +148,19 @@ const Dashboard = () => {
                 secure_url={meme.secure_url}
                 width={meme.width}
                 height={meme.height}
+              />
+              <DeleteMeme
+                memeId={meme.public_id}
+                memeUrl={meme.secure_url}
+                setMemeArray={() => setMemes([])}
+                onDeleteSuccess={() =>
+                  fetchMemes(
+                    username as string,
+                    typeOfMeme,
+                    nextCursor as string,
+                  )
+                }
+                newClassName="absolute left-3 bottom-3 text-blue hover:text-red-500 transition-all"
               />
               <ShareMeme
                 imageId={meme.public_id}

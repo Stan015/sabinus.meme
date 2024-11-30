@@ -217,6 +217,23 @@ export const getSingleMemeAction = async (memeId: string) => {
   }
 };
 
+export const deleteMemeAction = async (memeId: string): Promise<boolean> => {
+  try {
+    const result = await cloudinary.uploader.destroy(memeId);
+
+    if (result.result === "ok") {
+      console.log("Meme deleted successfully:", memeId);
+      return true;
+    }
+
+    console.error("Failed to delete meme:", result);
+    return false;
+  } catch (error) {
+    console.error("Error deleting meme:", (error as Error).message);
+    return false;
+  }
+};
+
 export const getUsernameFromCookie = async () => {
   const coockiesStore = await cookies();
   return coockiesStore.get("username")?.value || null;
