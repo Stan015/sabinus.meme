@@ -3,9 +3,20 @@
 import { Button } from "@/components/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function ErrorPage() {
+export default function GlobalError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
   const router = useRouter();
+
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
 
   return (
     <section className="mt-[7rem] px-[10%] flex flex-col items-center gap-8 w-full min-h-[calc(100dvh-15rem)] mb-[2rem]">
@@ -19,9 +30,14 @@ export default function ErrorPage() {
         height={600}
         className="border-[5px] border-blue rounded-3xl"
       />
-      <Button className="text-base" onClick={() => router.back()}>
-        Go back
-      </Button>
+      <div className="flex gap-3">
+        <Button className="text-base" onClick={() => router.back()}>
+          Go back
+        </Button>
+        <Button className="text-base" onClick={() => reset()}>
+          Reset
+        </Button>
+      </div>
     </section>
   );
 }
