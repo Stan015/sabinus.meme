@@ -64,7 +64,7 @@ export default function DeleteMeme({
           aria-labelledby="delete-warning-title"
           aria-describedby="delete-warning-desc"
         >
-          <div className="w-[24rem] max-sm:w-[18rem] p-4 border-2 border-blue rounded-xl bg-gray-100 dark:bg-dark text-base">
+          <div className="w-[24rem] max-sm:w-[18rem] p-4 border-[5px] border-blue rounded-xl bg-gray-100 dark:bg-dark text-base">
             <p id="delete-warning-desc" className="mb-4 text-pretty">
               <strong className="text-red-600">Warning:</strong> You are about
               to delete the meme below.
@@ -78,14 +78,14 @@ export default function DeleteMeme({
 
             <div className="flex flex-wrap justify-between gap-2">
               <button
-                className="w-max px-4 py-2 bg-red-500 hover:bg-red-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
+                className="w-max px-4 py-2 bg-red-500 hover:bg-red-600 transition-all text-white text-[1.2rem] max-sm:text-[0.8rem] max-sm:font-medium font-bold rounded-xl"
                 type="button"
                 onClick={() => setIsPopoverVisible(false)}
               >
                 Cancel
               </button>
               <button
-                className="w-max px-4 py-2 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
+                className="w-max px-4 py-2 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] max-sm:text-[0.8rem] max-sm:font-medium font-bold rounded-xl"
                 type="button"
                 onClick={() => handleDelete(memeId)}
               >

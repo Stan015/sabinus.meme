@@ -3,7 +3,7 @@
 import type { PreviewSizeOptions, PreviewSizes } from "@/types";
 import type { ChangeEvent } from "react";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { uploadAction } from "@/actions";
 import SizeOptions from "@/components/size-options";
 import ExpressionOptions from "@/components/expression-options";
@@ -30,6 +30,7 @@ export default function Upload() {
   const [image, setImage] = useState<string | ArrayBuffer | null>();
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const popoverDiv = useRef<HTMLDivElement | null>(null)
 
   const expressionOptions: string[] = [
     "happy",
@@ -97,10 +98,8 @@ export default function Upload() {
           },
           ...prev,
         ]);
-        // console.log(previewSizeOptions);
       };
     }
-    // console.log("preview image not loaded yet");
   }, [image]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -108,10 +107,13 @@ export default function Upload() {
     handleImagePreview(inputFile);
   };
 
-  // console.log(isPopoverVisible);
   useEffect(() => {
     if (uploading) toast.success("Your meme is uploading...");
-  }, [uploading]);
+    
+    if (!isPopoverVisible && popoverDiv.current) {
+        popoverDiv.current.hidePopover?.();
+      }
+  }, [uploading, isPopoverVisible]);
 
   return (
     <section className="flex flex-col gap-6 max-sm:gap-4 mt-[7rem] mb-10 px-[10%] items-center w-full min-h-[calc(100dvh-9.5rem)]">
@@ -222,9 +224,10 @@ export default function Upload() {
               </button>
 
               <div
-                className="w-[24rem] max-sm:-[18rem] p-4 border-[5px] border-blue rounded-xl bg-gray-100 dark:bg-dark backdrop:bg-dark backdrop:opacity-[0.8] absolute top-[-15rem] text-base"
+                className="w-[24rem] max-sm:-[18rem] p-4 border-[5px] border-blue rounded-xl bg-gray-100 dark:bg-dark backdrop:bg-dark backdrop:opacity-[0.8] fixed top-[-15rem] text-base"
                 id="upload-warning"
                 popover="auto"
+                ref={popoverDiv}
               >
                 {typeOfMeme === "sabinus" ? (
                   <>
