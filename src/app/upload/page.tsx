@@ -30,7 +30,7 @@ export default function Upload() {
   const [image, setImage] = useState<string | ArrayBuffer | null>();
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const popoverDiv = useRef<HTMLDivElement | null>(null)
+  const popoverDiv = useRef<HTMLDivElement | null>(null);
 
   const expressionOptions: string[] = [
     "happy",
@@ -109,10 +109,10 @@ export default function Upload() {
 
   useEffect(() => {
     if (uploading) toast.success("Your meme is uploading...");
-    
+
     if (!isPopoverVisible && popoverDiv.current) {
-        popoverDiv.current.hidePopover?.();
-      }
+      popoverDiv.current.hidePopover?.();
+    }
   }, [uploading, isPopoverVisible]);
 
   return (

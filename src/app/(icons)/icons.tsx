@@ -281,3 +281,47 @@ export function MingcuteDeleteLine(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function RadixIconsEyeOpen(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={15}
+      height={15}
+      viewBox="0 0 15 15"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M7.5 11c-2.697 0-4.97-1.378-6.404-3.5C2.53 5.378 4.803 4 7.5 4s4.97 1.378 6.404 3.5C12.47 9.622 10.197 11 7.5 11m0-8C4.308 3 1.656 4.706.076 7.235a.5.5 0 0 0 0 .53C1.656 10.294 4.308 12 7.5 12s5.844-1.706 7.424-4.235a.5.5 0 0 0 0-.53C13.344 4.706 10.692 3 7.5 3m0 6.5a2 2 0 1 0 0-4a2 2 0 0 0 0 4"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  );
+}
+
+export function FormkitEyeclosed(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={16}
+      height={16}
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M8 11c-1.65 0-3-1.35-3-3s1.35-3 3-3s3 1.35 3 3s-1.35 3-3 3m0-5c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2"
+      ></path>
+      <path
+        fill="currentColor"
+        d="M8 13c-3.19 0-5.99-1.94-6.97-4.84a.44.44 0 0 1 0-.32C2.01 4.95 4.82 3 8 3s5.99 1.94 6.97 4.84c.04.1.04.22 0 .32C13.99 11.05 11.18 13 8 13M2.03 8c.89 2.4 3.27 4 5.97 4s5.07-1.6 5.97-4C13.08 5.6 10.7 4 8 4S2.93 5.6 2.03 8"
+      ></path>
+      <path
+        fill="currentColor"
+        d="M14 14.5a.47.47 0 0 1-.35-.15l-12-12c-.2-.2-.2-.51 0-.71s.51-.2.71 0l11.99 12.01c.2.2.2.51 0 .71c-.1.1-.23.15-.35.15Z"
+      ></path>
+    </svg>
+  );
+}

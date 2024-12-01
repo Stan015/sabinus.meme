@@ -6,6 +6,15 @@ import { handleGoogleSignUp, signIn } from "@/(authentication)/auth";
 import LoginForm from "../components/login-form";
 import { Button } from "@/components/button";
 import Image from "next/image";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email address").min(4, "Email is required"),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .max(64, "Password must not exceed 64 characters"),
+});
 
 export default function Login() {
   const [formData, setFormData] = useState<FormData>({
@@ -13,6 +22,14 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [emailErrorMessage, setEmailErrorMessage] = useState<string | null>(
+    null,
+  );
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState<
+    string | null
+  >(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -22,7 +39,30 @@ export default function Login() {
   };
 
   const handleSubmit = async () => {
-    await signIn(formData);
+    setLoading(true);
+    try {
+      loginSchema.parse(formData);
+      await signIn(formData);
+      setEmailErrorMessage(null);
+      setPasswordErrorMessage(null);
+      setErrorMessage(null);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const emailErrors = error.errors
+          .filter((err) => err.path.includes("email"))
+          .map((err) => err.message);
+        const passwordErrors = error.errors
+          .filter((err) => err.path.includes("password"))
+          .map((err) => err.message);
+
+        setEmailErrorMessage(emailErrors.join(", "));
+        setPasswordErrorMessage(passwordErrors.join(", "));
+      } else {
+        setErrorMessage("Failed to sign in. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -32,6 +72,9 @@ export default function Login() {
           formData={formData}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
+          errorMessage={errorMessage}
+          emailErrorMessage={emailErrorMessage}
+          passwordErrorMessage={passwordErrorMessage}
         />
         <Button
           onClick={async () => await handleGoogleSignUp("google")}
