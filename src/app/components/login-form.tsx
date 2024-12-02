@@ -5,7 +5,11 @@ import { ArrowRightIcon } from "@heroicons/react/20/solid";
 import { Button } from "./button";
 import type { FormData } from "@/types";
 import { type FC, useState } from "react";
-import { FormkitEyeclosed, RadixIconsEyeOpen } from "@/(icons)/icons";
+import {
+  EosIconsThreeDotsLoading,
+  FormkitEyeclosed,
+  RadixIconsEyeOpen,
+} from "@/(icons)/icons";
 
 type Props = {
   formData: FormData;
@@ -14,6 +18,7 @@ type Props = {
   errorMessage: string | null;
   emailErrorMessage: string | null;
   passwordErrorMessage: string | null;
+  isLoading: boolean;
 };
 
 const LoginForm: FC<Props> = ({
@@ -21,6 +26,7 @@ const LoginForm: FC<Props> = ({
   handleChange,
   handleSubmit,
   errorMessage,
+  isLoading,
   emailErrorMessage,
   passwordErrorMessage,
 }) => {
@@ -40,7 +46,7 @@ const LoginForm: FC<Props> = ({
           </label>
           <div className="relative">
             <input
-              className="peer block w-full rounded-md border-2 border-gray-200 focus:border-blue hover:border-blue transition-all outline-none bg-white py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+              className="peer block w-full rounded-md border-2 border-gray-200 focus:border-blue hover:border-blue transition-all outline-none bg-white py-[9px] pl-10 text-sm  text-clr-light outline-2 placeholder:text-gray-500"
               id="email"
               type="email"
               name="email"
@@ -66,7 +72,7 @@ const LoginForm: FC<Props> = ({
           <div className="relative">
             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             <input
-              className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+              className="block w-full rounded-md border-2 border-gray-200  text-clr-light hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
               id="password"
               type={showPassword ? "text" : "password"}
               name="password"
@@ -98,7 +104,15 @@ const LoginForm: FC<Props> = ({
         className="mt-4 w-full flex items-center justify-center gap-4"
         type="submit"
       >
-        Log in <ArrowRightIcon className=" h-5 w-5 text-gray-500" />
+        {isLoading ? (
+          <>
+            Loading <EosIconsThreeDotsLoading />
+          </>
+        ) : (
+          <>
+            Log in <ArrowRightIcon className=" h-5 w-5 text-gray-500" />
+          </>
+        )}
       </Button>
     </form>
   );

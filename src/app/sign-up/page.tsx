@@ -6,8 +6,13 @@ import { handleGoogleSignUp, signUp } from "@/(authentication)/auth";
 import { Button } from "@/components/button";
 import Image from "next/image";
 import { KeyIcon } from "@heroicons/react/24/outline";
-import { FormkitEyeclosed, RadixIconsEyeOpen } from "@/(icons)/icons";
+import {
+  EosIconsThreeDotsLoading,
+  FormkitEyeclosed,
+  RadixIconsEyeOpen,
+} from "@/(icons)/icons";
 import { z } from "zod";
+import Link from "next/link";
 
 const signUpSchema = z.object({
   username: z.string().min(6, "Username must be at least 2 characters"),
@@ -47,22 +52,34 @@ const Signup = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
     try {
       signUpSchema.parse(formData);
       await signUp(formData);
+
       setUsernameErrorMessage(null);
       setEmailErrorMessage(null);
       setPasswordErrorMessage(null);
       setErrorMessage(null);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        error.errors.forEach((err) => {
+        for (const err of error.errors) {
           if (err.path.includes("username"))
             setUsernameErrorMessage(err.message);
           if (err.path.includes("email")) setEmailErrorMessage(err.message);
           if (err.path.includes("password"))
             setPasswordErrorMessage(err.message);
-        });
+        }
+      } else if (
+        error instanceof Error &&
+        error.message.includes("Username already exists")
+      ) {
+        setUsernameErrorMessage(
+          "Username already exists. Please choose a different one.",
+        );
+        console.error(error.message);
+      } else if ((error as Error).message.includes("Email already exists")) {
+        setEmailErrorMessage((error as Error).message);
       } else {
         setErrorMessage("An unexpected error occurred. Please try again.");
       }
@@ -92,7 +109,7 @@ const Signup = () => {
               value={formData.username}
               placeholder="Enter your username"
               onChange={handleChange}
-              className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"
+              className="block w-full text-clr-light rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"
             />
             {usernameErrorMessage && (
               <p className="text-[0.7rem] leading-tight text-red-600 mt-1">
@@ -114,7 +131,7 @@ const Signup = () => {
               placeholder="Enter your email"
               value={formData.email}
               onChange={handleChange}
-              className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"
+              className="block w-full text-clr-light rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] px-3 text-sm outline-2 placeholder:text-gray-500"
             />
             {emailErrorMessage && (
               <p className="text-[0.7rem] leading-tight text-red-600 mt-1">
@@ -132,7 +149,7 @@ const Signup = () => {
             <div className="relative">
               <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
               <input
-                className="block w-full rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                className="block w-full text-clr-light rounded-md border-2 border-gray-200 hover:border-blue focus:border-blue transition-all outline-none bg-white py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="password"
                 type={showPassword ? "text" : "password"}
                 name="password"
@@ -163,7 +180,13 @@ const Signup = () => {
             type="submit"
             className="flex gap-2 items-center justify-center mt-4 bg-blue text-white hover:bg-blue-deep w-full"
           >
-            Sign Up
+            {loading ? (
+              <>
+                Signing Up <EosIconsThreeDotsLoading />
+              </>
+            ) : (
+              "Sign Up"
+            )}
           </Button>
           <Button
             onClick={async () => await handleGoogleSignUp("google")}
@@ -177,6 +200,12 @@ const Signup = () => {
             />
             Sign Up with Google
           </Button>
+          <p className="text-[0.8rem]  text-clr-light leading-tight w-full text-center mt-2">
+            Already have an account?{" "}
+            <Link href={"/login"} className="text-blue-deep hover:underline ">
+              Login.
+            </Link>
+          </p>
         </form>
       </div>
     </section>

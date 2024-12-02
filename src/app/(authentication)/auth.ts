@@ -10,24 +10,69 @@ import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
 export async function signIn(formData: FormData) {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: formData.email,
-    password: formData.password,
-  });
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: formData.email,
+      password: formData.password,
+    });
 
-  if (error) {
-    console.error("Error signing in:", error.message);
-    redirect("/error");
-  } else {
-    // console.log("User signed in:", data.user);
+    if (error) {
+      if (error.message.includes("Invalid login credentials")) {
+        throw new Error("Invalid email or password. Please try again.");
+      }
+      if (error.message.includes("Email not confirmed")) {
+        throw new Error(
+          "Your email address is not confirmed. Please check your inbox.",
+        );
+      }
+      throw new Error("An unexpected error occurred during sign-in.");
+    }
+
     revalidatePath("/", "layout");
     redirect("/");
+  } catch (error) {
+    console.error("Error during sign-in:", (error as Error).message);
+    throw error;
   }
 }
 
 export async function signUp(formData: FormData) {
   const supabase = await createClient();
+  const origin = ((await headers()) as unknown as UnsafeUnwrappedHeaders).get(
+    "origin",
+  );
 
+  // Check if username or email already exists
+  try {
+    const response = await fetch(`${origin}/api/check-username-and-email`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-username": `${formData.username}`,
+        "x-email": `${formData.email}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorResponse = await response.json();
+      if (errorResponse.details) {
+        const { username, email } = errorResponse.details;
+
+        if (username) {
+          throw new Error(username);
+        }
+        if (email) {
+          throw new Error(email);
+        }
+      }
+      throw new Error(errorResponse.error || "Validation failed");
+    }
+  } catch (error) {
+    console.error("Validation error:", (error as Error).message);
+    throw error;
+  }
+
+  // Proceed with sign-up
   const { data, error } = await supabase.auth.signUp({
     email: formData.email,
     password: formData.password,
@@ -35,33 +80,28 @@ export async function signUp(formData: FormData) {
 
   if (error) {
     console.error("Error signing up:", error.message);
-    redirect("/error");
+    throw new Error(error.message);
   }
 
   if (data) {
-    // console.log("User signed up:", data.user);
-
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOSTNAME}/api/add-new-user-to-db`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+      const response = await fetch(`${origin}/api/add-new-user-to-db`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
-
-      const postUserData = await response.json();
+        body: JSON.stringify(formData),
+      });
 
       if (!response.ok) {
-        throw new Error(`"Something went wrong", ${postUserData.error}`);
+        const postUserData = await response.json();
+        throw new Error(
+          postUserData.error || "Error adding user to the database",
+        );
       }
-
-      // console.log(data, postUserData);
     } catch (error) {
-      console.error((error as Error).message);
+      console.error("Error adding user to database:", (error as Error).message);
+      throw error;
     }
   }
 
@@ -84,14 +124,12 @@ export const handleGoogleSignUp = async (provider: Provider) => {
 
   if (error) {
     console.error("Error signing up with Google:", error.message);
-    return redirect(`/error?message=${encodeURIComponent(error.message)}`);
   }
 
   if (data?.url) {
     redirect(data.url);
   } else {
     console.error("Error: No URL returned from Google sign-up.");
-    redirect("/error");
   }
 };
 
@@ -108,3 +146,5 @@ export const signOut = async () => {
 
   return { success: true };
 };
+
+export const recoverPassword = async (email: string) => {};

@@ -7,6 +7,7 @@ import LoginForm from "../components/login-form";
 import { Button } from "@/components/button";
 import Image from "next/image";
 import { z } from "zod";
+import Link from "next/link";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address").min(4, "Email is required"),
@@ -57,8 +58,8 @@ export default function Login() {
 
         setEmailErrorMessage(emailErrors.join(", "));
         setPasswordErrorMessage(passwordErrors.join(", "));
-      } else {
-        setErrorMessage("Failed to sign in. Please try again.");
+      } else if (error instanceof Error) {
+        setErrorMessage(error.message);
       }
     } finally {
       setLoading(false);
@@ -75,6 +76,7 @@ export default function Login() {
           errorMessage={errorMessage}
           emailErrorMessage={emailErrorMessage}
           passwordErrorMessage={passwordErrorMessage}
+          isLoading={loading}
         />
         <Button
           onClick={async () => await handleGoogleSignUp("google")}
@@ -88,6 +90,21 @@ export default function Login() {
           />
           Sign In with Google
         </Button>
+        <p className="text-[0.8rem] leading-tight  text-clr-light w-full text-center mt-2">
+          Don't have an account yet?{" "}
+          <Link href={"/sign-up"} className="text-blue-deep hover:underline ">
+            Sign Up.
+          </Link>
+        </p>
+        <p className="text-[0.8rem] leading-tight  text-clr-light w-full text-center mt-2">
+          Recover password instead:{" "}
+          <Link
+            href={"/recover-password"}
+            className="text-blue-deep hover:underline "
+          >
+            Here.
+          </Link>
+        </p>
       </div>
     </section>
   );
