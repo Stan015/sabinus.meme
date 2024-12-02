@@ -18,9 +18,15 @@ type PageParams = {
 export const generateMetadata = async ({
   params,
 }: PageParams): Promise<Metadata> => {
-  const origin = ((await headers()) as unknown as UnsafeUnwrappedHeaders).get(
-    "origin",
-  );
+  const requestHeaders =
+    (await headers()) as unknown as UnsafeUnwrappedHeaders;
+  const protocol = requestHeaders.get("x-forwarded-proto") || "http";
+  const host = requestHeaders.get("host");
+
+  if (!host) {
+    throw new Error("Host header is missing");
+  }
+  const origin = requestHeaders.get("origin") || `${protocol}://${host}`;
 
   const memeId = (await params).id;
 
