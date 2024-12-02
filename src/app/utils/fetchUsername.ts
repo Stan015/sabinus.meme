@@ -10,9 +10,15 @@ export const fetchUsername = async (
   try {
     const user = (await (await createClient()).auth.getUser()).data.user;
 
-    const origin = ((await headers()) as unknown as UnsafeUnwrappedHeaders).get(
-      "origin",
-    );
+    const requestHeaders =
+      (await headers()) as unknown as UnsafeUnwrappedHeaders;
+    const protocol = requestHeaders.get("x-forwarded-proto") || "http";
+    const host = requestHeaders.get("host");
+
+    if (!host) {
+      throw new Error("Host header is missing");
+    }
+    const origin = requestHeaders.get("origin") || `${protocol}://${host}`;
 
     const response = await fetch(`${origin}/api/get-username`, {
       method: "GET",
@@ -33,7 +39,7 @@ export const fetchUsername = async (
 
     return data.username as string;
   } catch (error) {
-    console.error("Failed to fetch username or upload image:", error);
+    console.error("Failed to fetch username:", error);
     return null;
   }
 };

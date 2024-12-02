@@ -20,8 +20,6 @@ export const uploadAction = async (
   req?: NextRequest,
 ) => {
   const memeFileInput = (formData.get("memeFile") as File) || null;
-  // const memeDescription =
-  //   formData.get("memeDescription")?.toString().trim() || "";
   const memeExpression =
     formData.get("memeExpression")?.toString().trim() || "";
   const imageSize = formData.get("imageSize")?.toString().trim() || "";
@@ -49,7 +47,7 @@ export const uploadAction = async (
         folder = `sabinus-memes/${username}`;
       }
 
-      await new Promise((resolve, reject) => {
+      const result = await new Promise((resolve, reject) => {
         cloudinary.uploader
           .upload_stream(
             {
@@ -57,7 +55,6 @@ export const uploadAction = async (
               upload_preset: "sabinus_preset",
               folder: folder,
               image_metadata: true,
-              unique_filename: true,
               resource_type: "image",
               width: memeWidth,
               height: memeHeight,
@@ -68,11 +65,27 @@ export const uploadAction = async (
                 return;
               }
               resolve(result);
-              console.log(result);
             },
           )
           .end(buffer);
       });
+
+      if (!result || !result.public_id)
+        throw new Error("Failed to upload the meme.");
+
+      const idWithFolderPrefix = result.public_id as string;
+      const publicId = idWithFolderPrefix.split("/").pop() as string;
+
+      const renameResult = await cloudinary.uploader.rename(
+        idWithFolderPrefix,
+        publicId,
+      );
+
+      if (!renameResult) throw new Error("Failed to rename public id");
+
+      console.log("renameID", renameResult);
+
+      return { renameResult, publicId: renameResult.public_id as string };
     } catch (error) {
       console.error("Error occured: ", error as Error);
     }

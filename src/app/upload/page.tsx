@@ -11,8 +11,10 @@ import PreviewUpload from "@/components/preview-upload";
 import cn from "@/utils/cn";
 import { EosIconsThreeDotsLoading } from "@/(icons)/icons";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function Upload() {
+  const router = useRouter();
   const [typeOfMeme, setTypeOfMeme] = useState<string>("sabinus");
   const [expressions, setExpressions] = useState<string[]>([]);
 
@@ -165,9 +167,11 @@ export default function Upload() {
               ) as HTMLFormElement;
               const formData = new FormData(formElement);
 
-              await uploadAction(formData, typeOfMeme);
-
-              toast.success("Your meme has been uploaded successfully");
+              const response = await uploadAction(formData, typeOfMeme);
+              if (response) {
+                toast.success("Your meme has been uploaded successfully");
+                router.push(`/meme/${response.publicId}`);
+              }
             } catch (error) {
               console.error("failed to upload", (error as Error).message);
               toast.error("Failed to upload successfully");

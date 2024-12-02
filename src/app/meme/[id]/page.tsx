@@ -8,6 +8,7 @@ import ToggleFavourite from "@/components/toggle-favourite";
 import type { Meme } from "@/types";
 import { fetchUsername } from "@/utils/fetchUsername";
 import type { Metadata } from "next";
+import { headers, type UnsafeUnwrappedHeaders } from "next/headers";
 import Link from "next/link";
 
 type PageParams = {
@@ -17,6 +18,10 @@ type PageParams = {
 export const generateMetadata = async ({
   params,
 }: PageParams): Promise<Metadata> => {
+  const origin = ((await headers()) as unknown as UnsafeUnwrappedHeaders).get(
+    "origin",
+  );
+
   const memeId = (await params).id;
 
   const meme = {
@@ -31,10 +36,10 @@ export const generateMetadata = async ({
     openGraph: {
       title: meme.title,
       description: meme.description,
-      url: `http://localhost:3000/api/og?memeId=${meme.id}`,
+      url: `${origin}/api/og?memeId=${meme.id}`,
       images: [
         {
-          url: `http://localhost:3000/api/og?memeId=${meme.id}`,
+          url: `${origin}/api/og?memeId=${meme.id}`,
           width: 1200,
           height: 630,
           alt: meme.title,
@@ -47,6 +52,8 @@ export const generateMetadata = async ({
 export default async function MemeDetails({ params }: PageParams) {
   const username = await fetchUsername();
   const memeId = (await params).id;
+
+  console.log(username);
 
   const displayedMemeData = async () => {
     try {
@@ -63,18 +70,18 @@ export default async function MemeDetails({ params }: PageParams) {
   return (
     <section className="w-full min-h-[calc(100dvh-16rem)] mb-[2rem] mt-[8rem] bg-unset px-[10%] flex flex-col items-center gap-5">
       <div className="flex flex-col h-full w-full gap-3 items-center p-4">
-        <h1 className="text-4xl font-bold text-center">Laugh with us! 😂</h1>
+        <h1 className="text-4xl font-bold max-sm:text-[1.5rem] text-center">
+          Laugh with us! 😂
+        </h1>
         <div className="h-max overflow-hidden relative">
           <DownloadMeme
             fileUrl={meme.secure_url}
             newClassName="absolute text-blue left-3 top-3 hover:text-red-500 transition-all"
           />
           <ToggleFavourite meme={meme} username={username} />
-          <img
-            src={meme.secure_url}
-            alt={title}
-            className="max-w-[30rem] max-h-[60svh] border-[5px] border-blue rounded-3xl"
-          />
+          <div className="max-w-[30rem] max-h-[60svh] max-sm:max-w-[18rem] max-sm:max-h-[30rem] border-[5px] border-blue rounded-3xl overflow-hidden">
+            <img src={meme.secure_url} alt={title} className="w-full h-full" />
+          </div>
           <ShareMeme
             imageId={meme.public_id}
             newClassName="absolute bottom-3 right-3 text-blue hover:text-red-500 transition-all"
