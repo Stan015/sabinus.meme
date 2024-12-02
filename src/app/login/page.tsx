@@ -91,7 +91,7 @@ export default function Login() {
           Sign In with Google
         </Button>
         <p className="text-[0.8rem] leading-tight  text-clr-light w-full text-center mt-2">
-          Don't have an account yet?{" "}
+          Don&#39;t have an account yet?{" "}
           <Link href={"/sign-up"} className="text-blue-deep hover:underline ">
             Sign Up.
           </Link>
