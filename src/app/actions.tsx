@@ -70,10 +70,10 @@ export const uploadAction = async (
           .end(buffer);
       });
 
-      if (!result || !result.public_id)
+      if (!result || !(result as { public_id: string }).public_id)
         throw new Error("Failed to upload the meme.");
 
-      const idWithFolderPrefix = result.public_id as string;
+      const idWithFolderPrefix = (result as { public_id: string }).public_id;
       const publicId = idWithFolderPrefix.split("/").pop() as string;
 
       const renameResult = await cloudinary.uploader.rename(
