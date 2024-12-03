@@ -13,29 +13,32 @@ export async function GET(request: NextRequest) {
   try {
     const { data, error } = await supabase
       .from("users")
-      .select("email")
+      .select("*")
       .eq("email", userEmail)
-      .single();
-
-    if (data) {
-      return new NextResponse(JSON.stringify(data), { status: 201 });
-    }
+      .limit(1)
+      .maybeSingle();
 
     if (error) {
-      console.error("Error selecting user:", error.message);
-      const { data: insertData, error: insertError } = await supabase
-        .from("users")
-        .insert([{ email: userEmail }]);
-
-      if (insertError) {
-        console.error("Error inserting user:", insertError.message);
-        return new NextResponse("Error inserting user", { status: 500 });
-      }
-
-      return new NextResponse(JSON.stringify(insertData), { status: 201 });
+      console.error("Error fetching user:", error.message);
+      return new NextResponse("Error fetching user from database", {
+        status: 400,
+      });
     }
 
-    return new NextResponse(null, { status: 404 });
+    if (data) {
+      return new NextResponse(JSON.stringify(data), { status: 200 });
+    }
+
+    const { data: insertData, error: insertError } = await supabase
+      .from("users")
+      .insert([{ email: userEmail }]);
+
+    if (insertError) {
+      console.error("Error inserting user:", insertError.message);
+      return new NextResponse("Error inserting user", { status: 500 });
+    }
+
+    return new NextResponse(JSON.stringify(insertData[0]), { status: 201 });
   } catch (err) {
     console.error("Internal Server Error:", (err as Error).message);
     return new NextResponse("Internal Server Error", { status: 500 });
