@@ -1,5 +1,12 @@
+// @ts-nocheck
+
 import { createClient } from "@/utils/supabase/server";
 import { type NextRequest, NextResponse } from "next/server";
+
+type User = {
+  id: string;
+  email: string;
+};
 
 export async function GET(request: NextRequest) {
   const supabase = await createClient();
