@@ -76,6 +76,9 @@ export async function signUp(formData: FormData) {
   const { data, error } = await supabase.auth.signUp({
     email: formData.email,
     password: formData.password,
+    options: {
+      emailRedirectTo: `${origin}/api/auth/confirm`,
+    },
   });
 
   if (error) {
