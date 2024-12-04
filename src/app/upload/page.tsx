@@ -217,10 +217,6 @@ export default function Upload() {
             <button
               className="w-max px-6 py-4 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
               type="button"
-              {...{
-                popoverTarget: "upload-warning",
-                popoverTargetAction: "show",
-              }}
               onClick={() => setIsPopoverVisible(true)}
             >
               Proceed
@@ -230,12 +226,11 @@ export default function Upload() {
                 role="dialog"
                 aria-labelledby="upload-warning-title"
                 aria-describedby="upload-warning-desc"
-                className="w-max h-max block relative"
+                className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-[0.8] z-50"
               >
                 <div
-                  className="w-[24rem] max-sm:w-[18rem] p-4 border-[5px] border-blue rounded-xl bg-gray-100 dark:bg-dark backdrop:bg-dark backdrop:opacity-[0.8] fixed top-[-15rem] text-base"
+                  className="w-[24rem] max-sm:w-[18rem] p-4 border-[5px] border-blue rounded-xl bg-gray-100 dark:bg-dark backdrop:bg-dark backdrop:opacity-[0.8] fixed text-base"
                   id="upload-warning"
-                  popover="auto"
                   ref={popoverDiv}
                 >
                   {typeOfMeme === "sabinus" ? (
@@ -285,10 +280,6 @@ export default function Upload() {
                     <button
                       className="w-max px-4 py-2 bg-red-500 hover:bg-red-600 transition-all text-white text-[1.2rem] max-sm:text-[0.8rem] max-sm:font-medium font-bold rounded-xl"
                       type="button"
-                      {...{
-                        popoverTarget: "upload-warning",
-                        popoverTargetAction: "hide",
-                      }}
                       onClick={() => setIsPopoverVisible(false)}
                     >
                       Cancel
