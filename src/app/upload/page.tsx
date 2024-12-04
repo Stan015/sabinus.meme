@@ -214,95 +214,102 @@ export default function Upload() {
               setPreviewSize={setPreviewSize}
             />
 
-            <div className="w-max h-max block relative">
-              <button
-                className="w-max px-6 py-4 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
-                type="button"
-                {...{
-                  popoverTarget: "upload-warning",
-                  popoverTargetAction: "show",
-                }}
-                onClick={() => setIsPopoverVisible(true)}
-              >
-                Proceed
-              </button>
-
+            <button
+              className="w-max px-6 py-4 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
+              type="button"
+              {...{
+                popoverTarget: "upload-warning",
+                popoverTargetAction: "show",
+              }}
+              onClick={() => setIsPopoverVisible(true)}
+            >
+              Proceed
+            </button>
+            {isPopoverVisible && (
               <div
-                className="w-[24rem] max-sm:-[18rem] p-4 border-[5px] border-blue rounded-xl bg-gray-100 dark:bg-dark backdrop:bg-dark backdrop:opacity-[0.8] fixed top-[-15rem] text-base"
-                id="upload-warning"
-                popover="auto"
-                ref={popoverDiv}
+                role="dialog"
+                aria-labelledby="upload-warning-title"
+                aria-describedby="upload-warning-desc"
+                className="w-max h-max block relative"
               >
-                {typeOfMeme === "sabinus" ? (
-                  <>
-                    <p className="mb-4 text-pretty">
-                      <strong className="text-red-600">Warning:</strong> Only
-                      Sabinus&#39; memes should be uploaded. User who uploads
-                      other memes in this section would be disabled with
-                      immediate effect.
-                    </p>
-                    <label className="flex items-start italic gap-2 mb-6">
-                      <input
-                        className="w-[2rem] h-[2rem] text-pretty"
-                        type="checkbox"
-                        name="confirmedMeme"
-                        id="confirmedMeme"
-                        required
-                      />
-                      I confirm that the image to be uploaded is Sabinus&#39;
-                      meme, and should be displayed to the public.
-                    </label>
-                  </>
-                ) : (
-                  <>
-                    <p className="mb-4 text-pretty">
-                      <strong className="text-red-600">Warning:</strong> Memes
-                      uploaded to &#39;Others&#39; will be saved to your
-                      personal folder, and will ONLY be displayed on your
-                      dashboard.
-                    </p>
-                    <label className="flex items-start italic gap-2 mb-6">
-                      <input
-                        className="w-[2rem] h-[2rem] text-pretty"
-                        type="checkbox"
-                        name="confirmedMeme"
-                        id="confirmedMeme"
-                        required
-                      />
-                      I confirm that the image to be uploaded is NOT
-                      Sabinus&#39; meme and should be saved to &#39;Others&#39;.
-                    </label>
-                  </>
-                )}
+                <div
+                  className="w-[24rem] max-sm:w-[18rem] p-4 border-[5px] border-blue rounded-xl bg-gray-100 dark:bg-dark backdrop:bg-dark backdrop:opacity-[0.8] fixed top-[-15rem] text-base"
+                  id="upload-warning"
+                  popover="auto"
+                  ref={popoverDiv}
+                >
+                  {typeOfMeme === "sabinus" ? (
+                    <>
+                      <p className="mb-4 text-pretty">
+                        <strong className="text-red-600">Warning:</strong> Only
+                        Sabinus&#39; memes should be uploaded. User who uploads
+                        other memes in this section would be disabled with
+                        immediate effect.
+                      </p>
+                      <label className="flex items-start italic gap-2 mb-6">
+                        <input
+                          className="w-[2rem] h-[2rem] text-pretty"
+                          type="checkbox"
+                          name="confirmedMeme"
+                          id="confirmedMeme"
+                          required
+                        />
+                        I confirm that the image to be uploaded is Sabinus&#39;
+                        meme, and should be displayed to the public.
+                      </label>
+                    </>
+                  ) : (
+                    <>
+                      <p className="mb-4 text-pretty">
+                        <strong className="text-red-600">Warning:</strong> Memes
+                        uploaded to &#39;Others&#39; will be saved to your
+                        personal folder, and will ONLY be displayed on your
+                        dashboard.
+                      </p>
+                      <label className="flex items-start italic gap-2 mb-6">
+                        <input
+                          className="w-[2rem] h-[2rem] text-pretty"
+                          type="checkbox"
+                          name="confirmedMeme"
+                          id="confirmedMeme"
+                          required
+                        />
+                        I confirm that the image to be uploaded is NOT
+                        Sabinus&#39; meme and should be saved to
+                        &#39;Others&#39;.
+                      </label>
+                    </>
+                  )}
 
-                <div className="flex flex-wrap justify-between gap-2">
-                  <button
-                    className="w-max px-4 py-2 bg-red-500 hover:bg-red-600 transition-all text-white text-[1.2rem] font-bold rounded-xl"
-                    type="button"
-                    {...{
-                      popoverTarget: "upload-warning",
-                      popoverTargetAction: "hide",
-                    }}
-                    onClick={() => setIsPopoverVisible(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="w-max px-4 py-2 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
-                    type="submit"
-                    onClick={() => setUploading(true)}
-                  >
-                    {!uploading ? (
-                      "Upload Meme"
-                    ) : (
-                      <span className="flex items-center">
-                        Uploading <EosIconsThreeDotsLoading />
-                      </span>
-                    )}
-                  </button>
+                  <div className="flex flex-wrap justify-between gap-2">
+                    <button
+                      className="w-max px-4 py-2 bg-red-500 hover:bg-red-600 transition-all text-white text-[1.2rem] max-sm:text-[0.8rem] max-sm:font-medium font-bold rounded-xl"
+                      type="button"
+                      {...{
+                        popoverTarget: "upload-warning",
+                        popoverTargetAction: "hide",
+                      }}
+                      onClick={() => setIsPopoverVisible(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      className="w-max px-4 py-2 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] max-sm:text-[0.8rem] max-sm:font-medium font-bold rounded-xl"
+                      type="submit"
+                      onClick={() => setUploading(true)}
+                    >
+                      {!uploading ? (
+                        "Upload Meme"
+                      ) : (
+                        <span className="flex items-center">
+                          Uploading <EosIconsThreeDotsLoading />
+                        </span>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </form>
       </div>
