@@ -1,6 +1,8 @@
 "use client";
 
+import { EosIconsThreeDotsLoading } from "@/(icons)/icons";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -8,6 +10,7 @@ const Contact = () => {
     email: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -19,10 +22,33 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission, e.g., send data to an API
-    console.log(form);
+
+    try {
+      setLoading(true);
+
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ form }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to send message");
+      }
+
+      toast.success("Message sent successfully");
+      console.log("Message sent successfully");
+    } catch (error) {
+      console.error("Failed to send message:", (error as Error).message);
+      toast.error("Failed to send message");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -89,9 +115,15 @@ const Contact = () => {
         </div>
         <button
           type="submit"
-          className="w-[10rem] max-sm:w-[18.5rem] py-3 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
+          className="w-[10rem] flex items-center justify-center max-sm:w-[18.5rem] py-3 bg-blue hover:bg-blue-deep transition-all text-white text-[1.2rem] font-bold rounded-xl"
         >
-          Submit
+          {loading ? (
+            <>
+              Sending <EosIconsThreeDotsLoading />
+            </>
+          ) : (
+            "Send"
+          )}
         </button>
       </form>
     </div>

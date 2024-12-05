@@ -18,8 +18,7 @@ type PageParams = {
 export const generateMetadata = async ({
   params,
 }: PageParams): Promise<Metadata> => {
-  const requestHeaders =
-    (await headers()) as unknown as UnsafeUnwrappedHeaders;
+  const requestHeaders = (await headers()) as unknown as UnsafeUnwrappedHeaders;
   const protocol = requestHeaders.get("x-forwarded-proto") || "http";
   const host = requestHeaders.get("host");
 
