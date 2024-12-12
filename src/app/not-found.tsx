@@ -13,7 +13,7 @@ export default function NotFound() {
         404 - Page Not Found.
       </h1>
       <Image
-        src="/media/404.JPG"
+        src="/media/not-found.jpg"
         alt="sabinus meme for 404 page"
         width={400}
         height={600}
