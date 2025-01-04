@@ -104,10 +104,10 @@ export const searchMemesAction = async (
   cursor?: string,
 ): Promise<SearchMemesResult> => {
   try {
-    let expression = "resource_type:image AND folder:sabinus-memes";
+    let expression = "resource_type:image AND folder=sabinus-memes";
 
     if (tag) {
-      expression += ` AND tags:${tag}`;
+      expression += ` AND tags:${tag}*`;
     }
 
     const search = cloudinary.search
@@ -140,9 +140,9 @@ export const fetchUserUploadsAction = async (
     let expression = "resource_type:image";
 
     if (typeOfUpload === "sabinus") {
-      expression += ` AND folder:sabinus-memes AND tags:${username}`;
+      expression += ` AND folder=sabinus-memes AND tags=${username}`;
     } else {
-      expression += ` AND folder:sabinus-memes/${username}`;
+      expression += ` AND folder=sabinus-memes/${username}`;
     }
 
     const search = cloudinary.search

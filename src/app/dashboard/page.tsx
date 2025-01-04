@@ -130,7 +130,7 @@ const Dashboard = () => {
       <section className="w-full min-h-[50svh] columns-2 gap-4 sm:columns-3 md:columns-4 lg:columns-5 [&>div:not(:first-child)]:mt-4">
         {loading && !nextCursor ? (
           <LoadingImage />
-        ) : (
+        ) : memes.length > 0 ? (
           memes.map((meme: Meme) => (
             <div
               className={cn(
@@ -168,6 +168,14 @@ const Dashboard = () => {
               />
             </div>
           ))
+        ) : memes.length === 0 && typeOfMeme === "sabinus" ? (
+          <p className="w-full text-center">
+            Sabinus memes you uploaded will be displayed here
+          </p>
+        ) : (
+          <p className="w-full text-center">
+            Other memes you uploaded will be displayed here
+          </p>
         )}
       </section>
       <Button
