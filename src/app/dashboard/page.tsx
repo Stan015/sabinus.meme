@@ -169,13 +169,9 @@ const Dashboard = () => {
             </div>
           ))
         ) : memes.length === 0 && typeOfMeme === "sabinus" ? (
-          <p className="w-full text-center">
-            Sabinus memes you uploaded will be displayed here
-          </p>
+          <p>Sabinus memes you uploaded will be displayed here</p>
         ) : (
-          <p className="w-full text-center">
-            Other memes you uploaded will be displayed here
-          </p>
+          <p>Other memes you uploaded will be displayed here</p>
         )}
       </section>
       <Button
